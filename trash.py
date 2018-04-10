@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-    file used to test a lot of stuff
+    File used to test a lot of stuff
 """
 
 import numpy as np
@@ -9,7 +9,7 @@ from squishingFunc import *
 
 def main():
     """
-        main function where there are a lot of stuff tested about
+        Main function where there are a lot of stuff tested about
         python3 language
     """
     tab = [0]*5

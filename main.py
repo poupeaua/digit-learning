@@ -2,6 +2,14 @@
 
 """
     Description of the whole problem and the implementation.
+
+    Advice linter for the code :
+        - linter
+        - linter-pylint
+        - minimap
+
+    Documentation about docstring convention in Python :
+    http://sametmax.com/les-docstrings/
 """
 
 import numpy as np
@@ -13,9 +21,9 @@ from neuralNetwork import *
 def main():
     """
         Main function. It calls everything to make the whole thing work
-        http://sametmax.com/les-docstrings/
     """
-    print(len(sys.argv))
+
+    # ./main.py network/network1.txt => len(sys.argv) == 2
     if len(sys.argv) <= 1:
         print("ERROR : There is no file arguement.")
         sys.exit(1)

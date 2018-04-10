@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""
+    File neuralNetwork.py is used to create and handle a Neural Network
+    as an object.
+"""
+
+import sys
 import numpy as np
 from squishingFunc import *
 
@@ -14,8 +20,10 @@ class NeuralNetwork:
 
     def __init__(self, entry):
         """
-            initialize a neural network
-            arguement:
+            Initialize a neural network
+
+            Inputs to this function :
+            
             -> entry : str variable that is the name of a txt document.
                       This document contains all the information concerning
                       the layers and their sizes. It will be used as followed :
@@ -59,12 +67,13 @@ class NeuralNetwork:
         else:
             print("ERROR : The number of layer is negative or equal to zero.")
             print("nb_layer = ", self.nb_layer)
+            sys.exit(1)
 
 
 
     def train(self, in_out_layers):
         """
-            method used to train the neural network
+            Method used to train the neural network
             arguement :
             -> inOutLayers : a tuple that contains two numpy arrays
                           the first numpy array has a length of 28x28 = 784
@@ -81,7 +90,7 @@ class NeuralNetwork:
 
     def test(self, input_layer):
         """
-            method used to test the neural network model
+            Method used to test the neural network model
             arguement :
             -> input_layer : it is a numpy array which len is 784.
                              it contains the color of pixel (white / black) with

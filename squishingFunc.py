@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 
 """
-    file used to store different function used to train the neural network
+    File used to store different function used to train the neural network
 """
 
 import numpy as np

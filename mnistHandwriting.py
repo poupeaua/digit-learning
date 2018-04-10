@@ -1,47 +1,56 @@
 #!/usr/bin/env python3
 # pylint: skip-file
 
+"""
+    File mnistHandwriting.py used to load the data.
+"""
+
 from struct import unpack
 from PIL import Image
 import numpy as np
 
-# This function reads data from the MNIST handwriting files.  To use this
-# you need to download the MNIST files from
-#    http://yann.lecun.com/exdb/mnist/
-# The data format is described towards the bottom of the page, but this
-# function MNISTexample takes care of reading it for you.  It will return
-# a list of labeled examples.  Each image in the training files are
-# 28x28 grayscale pictures, so the input for each example will have
-# 28*28=784 different inputs.  In the function, I have scaled these values
-# so they are each between 0.0 and 1.0.  Each of the images could be any
-# of the digits 0, 1, ..., 9.  So we should make a neural net that has 10
-# different output neurons, each one testing whether the input corresponds
-# to one of the digits.  In the examples that are returned by MNISTexample,
-# y is a list of length 10, with a 1 in the spot for the correct digit, and
-# 0's elsewhere.
-#
-# NOTE: you should try running the MNISTexample function to get
-# just a single example, like MNISTexample(0,1), to make sure it looks
-# right.  The header information should look like what they talked about
-# on the website, and you can print those values in the function below
-# to make sure it looks like it is working.  If it seems messed up,
-# let Jeff know.
-#
-# Inputs to this function...
-#
-# bTrain says whether to read from the train file for from the test file.
-# For the test file, they made sure the examples came from different people
-# than were used for producing the training file.
-#
-# The train file has 60,000 examples, and the test has 10,000.
-# startN says which example to start reading from in the file.
-# howMany says how many exmaples to read from that point.
-#
-# only01 is set to True to only return examples where the correct answer
-# is 0 or 1.  This makes the task simpler because we're only trying to
-# distinguish between two things instead of 10, meaning we won't need to
-# train as long to start getting good results.
+
 def MNISTexample(startN, howMany, bTrain=True, only01=False):
+    """
+        This function reads data from the MNIST handwriting files.  To use this
+        you need to download the MNIST files from :
+        http://yann.lecun.com/exdb/mnist/
+        The train file has 60,000 examples, and the test has 10,000.
+
+        The data format is described towards the bottom of the page, but this
+        function MNISTexample takes care of reading it for you.  It will return
+        a list of labeled examples.  Each image in the training files are
+        28x28 grayscale pictures, so the input for each example will have
+        28*28=784 different inputs.  In the function, I have scaled these values
+        so they are each between 0.0 and 1.0.  Each of the images could be any
+        of the digits 0, 1, ..., 9.  So we should make a neural net that has 10
+        different output neurons, each one testing whether the input corresponds
+        to one of the digits.  In the examples that are returned by MNISTexample,
+        y is a list of length 10, with a 1 in the spot for the correct digit,
+        and 0's elsewhere.
+
+        NOTE: you should try running the MNISTexample function to get
+        just a single example, like MNISTexample(0,1), to make sure it looks
+        right.  The header information should look like what they talked about
+        on the website, and you can print those values in the function below
+        to make sure it looks like it is working.  If it seems messed up,
+        let Jeff know.
+
+        Inputs to this function :
+
+        -> startN says which example to start reading from in the file.
+
+        -> howMany says how many examples to read from that point.
+
+        -> bTrain : says whether to read from the train file for from the test
+        file. For the test file, they made sure the examples came from different
+        people than were used for producing the training file.
+
+        -> only01 : is set to True to only return examples where the correct
+        answer is 0 or 1.  This makes the task simpler because we're only trying
+        to distinguish between two things instead of 10, meaning we won't need
+        to train as long to start getting good results.
+    """
     if bTrain:
         fImages = open("data/train-images-idx3-ubyte",'rb')
         fLabels = open('data/train-labels-idx1-ubyte','rb')
@@ -93,12 +102,23 @@ def MNISTexample(startN, howMany, bTrain=True, only01=False):
     return T
 
 
-# this function is not needed to do the training, but just in case you want
-# to see what one of the training images looks like.  this will take the
-# training data that was produced from the MNSTexample function and write
-# it out to a file that you can look at to see what the picture looks like.
-# It will write out a separate image for each thing in the training set.
+
 def writeMNISTimage(T, display, antialias=False):
+    """
+        This function is not needed to do the training, but just in case you want
+        to see what one of the training images looks like.  this will take the
+        training data that was produced from the MNSTexample function and write
+        it out to a file that you can look at to see what the picture looks like.
+        It will write out a separate image for each thing in the training set.
+
+        Inputs to this function :
+
+        -> T
+
+        -> display
+
+        -> antialias
+    """
     # note that you need to have the Python Imaging Library installed to
     # run this function.  If you search for it online, you'll find it.
     for i in range(0, len(T)):
