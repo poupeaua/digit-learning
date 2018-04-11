@@ -30,11 +30,16 @@ def main():
 
     # initilization of the dataset
     data = MNISTexample(0, 1)
-    print(len(data[0][0]), len(data[0][1]))
+    # print(len(data[0][0]), len(data[0][1]))
 
     # creation of the network
     network = NeuralNetwork(sys.argv[1])
-    print(network.test(data[0][0]))
+    # print(network.test(data[0][0]))
+
+    # generate a image thank to the neural network
+    test = ([0.01]*9)
+    test.insert(2, 0.99)
+    # print(network.generate(test))
 
 if __name__ == '__main__':
     main()

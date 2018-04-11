@@ -15,15 +15,15 @@ SIZE_OUTPUT = 10 # number of numbers between 0 and 9
 
 class NeuralNetwork:
     """
-        class neural network
+        Class neural network.
     """
 
     def __init__(self, entry):
         """
-            Initialize a neural network
+            Initialize a neural network.
 
-            Inputs to this function :
-            
+            Inputs :
+
             -> entry : str variable that is the name of a txt document.
                       This document contains all the information concerning
                       the layers and their sizes. It will be used as followed :
@@ -73,8 +73,10 @@ class NeuralNetwork:
 
     def train(self, in_out_layers):
         """
-            Method used to train the neural network
-            arguement :
+            Method used to train the neural network.
+
+            Inputs :
+
             -> inOutLayers : a tuple that contains two numpy arrays
                           the first numpy array has a length of 28x28 = 784
                           each element is in [0, 1] 0 means a dark pixel
@@ -90,14 +92,25 @@ class NeuralNetwork:
 
     def test(self, input_layer):
         """
-            Method used to test the neural network model
-            arguement :
+            Method used to test the neural network model by giving it a array
+            that contains all the pixels from an handwriting image.
+            Each step consists in calculate f(A_i x_i + b_i) = x_(i+1).
+            A_i is a weight matrix, b_i is a bias vector, x_i is the neural
+            vector or layer of index i and x_(i+1) of index (i+1).
+
+            Inputs :
+
             -> input_layer : it is a numpy array which len is 784.
                              it contains the color of pixel (white / black) with
                              number notation from 0 to 1 (everything was divided
                              by 255)
+
+            Output :
+
             <- new_array   : it is a numpy array of size 10. Each element is in
-                             [0, 1]
+                             [0, 1]. ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0] in the
+                             best case scenario if the input is a handwriting
+                             five.
         """
 
         new_array = input_layer
@@ -105,6 +118,37 @@ class NeuralNetwork:
             # print(len(new_array))
             new_array = ReEU(self.weights[index].dot(new_array)
                                 + self.bias[index])
+        # print(len(new_array))
+        return new_array
+
+
+
+    def generate(self, output_layer):
+        """
+            Method used to generate an image thanks to the neural network by
+            giving it the usual output.
+            Each step consists in calculate x_i = A_i^(-1)[f^(-1)(x_(i+1))-b_i].
+            A_i is a weight matrix, b_i is a bias vector, x_i is the neural
+            vector or layer of index i and x_(i+1) of index (i+1).
+
+            Inputs :
+
+            -> input_layer : it is a numpy array of size 10. Each element is in
+                             [0, 1]. ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+
+            Output :
+
+            <- new_array   : it is a numpy array which len is 784.
+                             it contains the color of pixel (white / black) with
+                             number notation from 0 to 1 (everything was divided
+                             by 255)
+        """
+        new_array = output_layer
+        # iteration from nb_layer => 0
+        for index in range(self.nb_layer, -1, -1):
+            # print(len(new_array))
+            invA = np.linalg.pinv(self.weights[index])
+            new_array = invA.dot(InvReEU(new_array)-self.bias[index])
         # print(len(new_array))
         return new_array
 

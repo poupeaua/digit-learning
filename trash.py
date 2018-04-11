@@ -20,6 +20,11 @@ def main():
     string = "abcdef"
     print(string[:-2])
     print(max([0, 0, 0, 0]))
+    for index in range(3, -1, -1):
+        print(index)
+    test = ([0.05]*9)
+    test.insert(2, 0.99)
+    print(test)
 
 if __name__ == "__main__":
     main()
