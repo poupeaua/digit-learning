@@ -14,6 +14,7 @@
 
 import numpy as np
 import sys
+import time
 from mnistHandwriting import *
 from neuralNetwork import *
 
@@ -23,14 +24,22 @@ def main():
         Main function. It calls everything to make the whole thing work
     """
 
+
     # ./main.py network/network1.txt => len(sys.argv) == 2
     if len(sys.argv) <= 1:
         print("ERROR : There is no file arguement.")
         sys.exit(1)
 
     # initilization of the dataset
-    data = MNISTexample(0, 1)
+    elapsed_time = time.time()
+    data = MNISTexample(0, 10000)
+    elapsed_time = time.time() - elapsed_time
+    print("Time to load the training data set :", elapsed_time, "s")
     # print(len(data[0][0]), len(data[0][1]))
+
+    timie = time.time()
+    timie = time.time() -timie
+    print("ezg", timie)
 
     # creation of the network
     network = NeuralNetwork(sys.argv[1])
