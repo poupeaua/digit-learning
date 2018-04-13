@@ -105,11 +105,12 @@ def MNISTexample(startN, howMany, bTrain=True, only01=False):
 
 def writeMNISTimage(T, display, antialias=False):
     """
-        This function is not needed to do the training, but just in case you want
-        to see what one of the training images looks like.  this will take the
-        training data that was produced from the MNSTexample function and write
-        it out to a file that you can look at to see what the picture looks like.
-        It will write out a separate image for each thing in the training set.
+        This function is not needed to do the training, but just in case you
+        want to see what one of the training images looks like. This will take
+        the training data that was produced from the MNSTexample function and
+        write it out to a file that you can look at to see what the picture
+        looks like. It will write out a separate image for each thing in the
+        training set.
 
         Inputs to this function :
 

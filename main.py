@@ -32,23 +32,21 @@ def main():
 
     # initilization of the dataset
     elapsed_time = time.time()
-    data = MNISTexample(0, 10000)
+    data = MNISTexample(0, 1000)
     elapsed_time = time.time() - elapsed_time
     print("Time to load the training data set :", elapsed_time, "s")
     # print(len(data[0][0]), len(data[0][1]))
 
-    timie = time.time()
-    timie = time.time() -timie
-    print("ezg", timie)
+    # timie = time.time()
+    # timie = time.time() -timie
+    # print("ezg", timie)
 
     # creation of the network
     network = NeuralNetwork(sys.argv[1])
-    # print(network.test(data[0][0]))
+    # print(network.generateAllLayers(data[0][0]))
 
     # generate a image thank to the neural network
-    test = ([0.01]*9)
-    test.insert(2, 0.99)
-    # print(network.generate(test))
+    # print(network.generateInputLayer(test))
 
 if __name__ == '__main__':
     main()
