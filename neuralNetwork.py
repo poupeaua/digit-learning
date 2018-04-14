@@ -22,7 +22,7 @@ class NeuralNetwork:
 
     def __init__(self, entry):
         """
-            Initialize a neural network.
+            Initialize an object NeuralNetwork.
 
             Inputs :
 
@@ -328,6 +328,7 @@ class NeuralNetwork:
             generated_output = generateOuputLayer(input_layer)
             # not really necessary just for information
             cost_array = CostFunction(generated_output, perfect_output)
+            cost = sum(cost_array)
             index_max_value = np.argmax(generated_output)
             expected_answer = np.argmax(perfect_output)
             if index_max_value == expected_answer:

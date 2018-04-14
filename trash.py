@@ -101,6 +101,27 @@ def main():
         for ele in element:
             assert(ele == 4)
 
+    # tes isdigit function
+    var = "1.56"
+    assert(var.isdigit() == False)
+    var = "156"
+    assert(var.isdigit() == True)
+
+    # test for argument manager
+    liste = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts"]
+    if "-bs" not in liste:
+        assert(False)
+
+    # test liste of function
+    nb_layer = 3
+    liste = [(Sigmoid, InvSigmoid, DerSigmoid)]* (nb_layer-1)
+    # print(liste) # works well
+
+    # test on STRING
+    arg = "constant100"
+    assert(arg[0:8] == "constant")
+    assert(arg[8:] == "100")
+
 
     print("OK. No bug were found in the trash.py file.")
 

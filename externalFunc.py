@@ -28,11 +28,19 @@ def NegPower(n, value=1.3):
     return np.power(value, -n)
 
 
+
+def Constant(n, value=1):
+    """
+        Generate a constant gradient descent factor.
+    """
+    return value
+
 # ------------------------------- Cost Function -------------------------------
 
 def CostFunction(output_layer, perfect_output):
     """
-        Generate the cost.
+        Generate the cost array. To calculate the cost, you just have to
+        compute sum(CostFunction(output_layer, perfect_output)).
 
         Inputs :
 
@@ -51,6 +59,20 @@ def DerCostFunction(output_layer, perfect_output):
     """
         Generate an numpy array where each of its composant is the derivative of
         the cost array.
-        Exact same inputs and outputs as the function above.
+        Exact same inputs and output as the function above.
     """
     return 2.0*np.array(training_output - perfect_output)
+
+
+
+#  -------------------------------- other ------------------------------------
+
+def isfloat(string):
+    """
+        Function useful to test whether or not a string is a float or not.
+    """
+    try:
+        num = float(string)
+    except ValueError:
+        return False
+    return True

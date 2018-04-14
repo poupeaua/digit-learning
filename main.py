@@ -15,20 +15,19 @@
 import numpy as np
 import sys
 import time
+from progress.bar import Bar
 from mnistHandwriting import *
 from neuralNetwork import *
+from argumentsManager import *
+
 
 # main function to execute the whole thing
 def main():
     """
         Main function. It calls everything to make the whole thing work
     """
-
-
-    # ./main.py network/network1.txt => len(sys.argv) == 2
-    if len(sys.argv) <= 1:
-        print("ERROR : There is no file arguement.")
-        sys.exit(1)
+    args = ArgsManager(sys.argv)
+    args.display()
 
     # initilization of the training_dataset
     elapsed_time = time.time()
@@ -56,6 +55,10 @@ def main():
     # generate a image thank to the neural network
     test_generated_output = network.generateInputLayer(test1)
     assert(len(test_generated_output) == 784)
+
+
+
+
 
 if __name__ == '__main__':
     main()
