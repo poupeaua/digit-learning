@@ -43,7 +43,7 @@ def CostFunction(output_layer, perfect_output):
         <-          : NUMPY ARRAY which size is equal to the size of the inputs
     """
     assert(len(output_layer) == len(perfect_output))
-    return cost_array = np.power(training_output - perfect_output, 2)
+    return np.power(training_output - perfect_output, 2)
 
 
 

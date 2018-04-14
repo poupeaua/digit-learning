@@ -101,12 +101,6 @@ def main():
         for ele in element:
             assert(ele == 4)
 
-    #
-    liste = [np.ones(shape=(3, 3)), 2*np.ones(shape=(3, 3))]
-    for element in liste:
-        element *= 2
-    print(liste)
-
 
     print("OK. No bug were found in the trash.py file.")
 
