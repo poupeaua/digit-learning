@@ -3,7 +3,12 @@
 """
     Description of the whole problem and the implementation.
 
-    Advice packages for the code :
+    Required for this to work:
+        - python3 (while coding 'python3 --version' = Python 3.5.2)
+        - numpy (install by doing 'pip3 install numpy')
+        - progressbar2 (install by doing 'pip3 install progressbar2')
+
+    Recommended packages for the code :
         - linter
         - linter-pylint
         - minimap
@@ -15,7 +20,7 @@
 import numpy as np
 import sys
 import time
-from progress.bar import Bar
+from progressbar import *
 from mnistHandwriting import *
 from neuralNetwork import *
 from argumentsManager import *
@@ -28,6 +33,14 @@ def main():
     """
     args = ArgsManager(sys.argv)
     args.display()
+
+    liste = [1]*1000000
+    widget = ['Test: ', Percentage(), ' ', Bar(marker='0',left='[',right=']'),
+           ' ', ETA(), ' ', FileTransferSpeed()]
+    bar = ProgressBar()
+    a = 0
+    for i in bar(liste):
+        a += 1
 
     # initilization of the training_dataset
     elapsed_time = time.time()
