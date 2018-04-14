@@ -8,6 +8,7 @@
 import sys
 import numpy as np
 from squishingFunc import *
+from externalFunc import *
 import random
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
@@ -34,62 +35,130 @@ class NeuralNetwork:
 
         document = open(entry, "r")
 
-        # number of layers in the neural network
-        self.nb_layer = int(document.readline(1))
+        # number of layers in the neural network + output and input layer
+        self.nb_layer = int(document.readline(1)) + 2
 
-        # number of neurals in each layer (except the input and output layers)
+        # number of neurals in each layer
         self.len_layers = [None]*self.nb_layer
-        index = 0
+        self.len_layers[0] = SIZE_INPUT
+        index = 1
         for line in document:
             string = line[:-1]
             if string != "":
                 self.len_layers[index] = int(string)
                 index += 1
+        self.len_layers[self.nb_layer-1] = SIZE_OUTPUT
 
-        # (nb_layer + 1) matrix and biases vectors composed the neural network
-        self.weights = [None]*(self.nb_layer+1)
-        self.biases = [None]*(self.nb_layer+1)
+        # (nb_layer - 1) matrix and biases vectors composed the neural network
+        self.weights = [None]*(self.nb_layer-1)
+        self.biases = [None]*(self.nb_layer-1)
 
-        if self.nb_layer > 0:
-            # shape=(row, column) / np.random.rand(row, column) values in [0,1[
-            # weights and biases to calculate the second layer
-            self.weights[0] = np.random.rand(self.len_layers[0], SIZE_INPUT)
-            self.biases[0] = np.random.rand(self.len_layers[0])
-
-            # in case there is more than one layer (except the in and output)
-            if self.nb_layer != 1:
-                for index in range(0, self.nb_layer-1):
-                    self.weights[index+1] = np.random.rand(
-                            self.len_layers[index+1], self.len_layers[index])
-                    self.biases[index+1] = np.random.rand(
-                            self.len_layers[index+1])
-
-            # weights and biases to calculate the last layer
-            self.weights[self.nb_layer] = np.random.rand(
-                    SIZE_OUTPUT, self.len_layers[self.nb_layer-1])
-            self.biases[self.nb_layer] = np.random.rand(SIZE_OUTPUT)
+        if self.nb_layer > 2:
+            for index in range(0, self.nb_layer-1):
+                self.weights[index] = np.random.rand(
+                        self.len_layers[index+1], self.len_layers[index])
+                self.biases[index] = np.random.rand(
+                        self.len_layers[index+1])
         else:
-            print("ERROR : The number of layer is negative or equal to zero.")
+            print("ERROR : The number of layer is inferior to 3.")
             print("nb_layer = ", self.nb_layer)
             sys.exit(1)
 
 
 
-    def train(self, data, batch_size=100, repeat=1):
+    def initializeEmptyDParamArrays(self):
+        """
+            Method used to do the initialization of dw and db
+            for the method train.
+        """
+        dweights = [None]*(self.nb_layer-1)
+        dbiases = [None]*(self.nb_layer-1)
+        for index in range(0, self.nb_layer-1):
+            dweights[index] = np.zeros(
+                    self.len_layers[index+1], self.len_layers[index])
+            dbiases[index] = np.zeros(
+                    self.len_layers[index+1])
+        return (dweights, dbiases)
+
+
+
+    def train(self, training_data, batch_size, gradientDescentFactor, repeat):
         """
             Method used to train the neural network.
-        """
 
-        # for _ in range(repeat):
-
-    def update(self, index, dweights, dbaises, der_func_z, der_cost_to_a,
-                current_layer):
+            If batch_size == 1 => individual training
+            Else               => mini_batching training
         """
+        size_training_data = len(training_data)
 
+
+        for i in range(0, round(size_training_data/batch_size)-1, 1):
+
+            # we can choose how many time we want to repeat the operation
+            # in order to get a deeper and a more efficent learning
+            for nb_repetition in range(repeat):
+
+                (dw,db) = self.initializeEmptyDParamArrays()
+
+                # iteration on the size of a batch
+                for index in range(i*batch_size, (i+1)*batch_size-1):
+
+                    # generate the image to use for the training and its
+                    # expected output
+                    in_out_layers = training_data[index]
+                    (dw2, db2) = self.calculateNegGradient(in_out_layers)
+
+                    if batch_size == 1:
+                        dw, db = dw2, db2
+                        break
+
+                    # add the gradient due to weights and biases
+                    for index2 in range(0, self.nb_layer-1):
+                        dw[index2] += dw2[index2]
+                        db[index2] += db2[index2]
+
+                for index in range(0, self.nb_layer-1):
+
+                    # apply the gradient descent factor to all the weights
+                    # and biases gradients
+                    # morevover, divide by the batch_size to normalize the grad
+                    dw[index] *= gradientDescentFactor(nb_repetition)/batch_size
+                    db[index] *= gradientDescentFactor(nb_repetition)/batch_size
+
+                    # finally update the weights and the biases in the neural
+                    # network
+                    self.weights[index] += dw[index]
+                    self.biases[index] += db[index]
+
+
+
+    def derivativeCostToParam(self, index, a, der_func_z, der_cost_to_a):
         """
-        der_func_z = DerReEU(z_values[index]) # derivative of function to z
-        der_cost_to_a = dcost_array # load the derivative of cost function to a
-        current_layer = values_layers[index] # take the second to last layer
+            Optimized calculation for derivative of the cost function according
+            to the following parameters : bias, weight and a.
+
+            Complexity : (column+1) * row
+        """
+        row = self.len_layers[index+1]
+        column = self.len_layers[index]
+
+        dweight_matrix = np.zeros(row, column)
+        dbiases_array = np.zeros(row)
+        da_array = np.zeros(column)
+
+        for i in range(0, row - 1):
+            dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
+
+        for j in range(0, column - 1):
+            da_array[j] = 0
+            for i in range(0, row - 1):
+                da_array[j] += self.weights[index][i][j] * dbiases_array[i]
+                dweight_matrix[i][j] = a[j] * dbiases_array[i]
+
+        # return negative of the matrix and array because we look for the
+        # negative gradient so we have to multiply by -1
+        return -dweight_matrix, -dbiases_array, da_array
+
 
 
     def calculateNegGradient(self, in_out_layers):
@@ -108,8 +177,11 @@ class NeuralNetwork:
 
             Output :
 
-            <- negativeGradient : NUMPY ARRAY of a size equal to the number of
-                          weights et biases in the neural network.
+            <- (dweights, dbiases) : TUPLE of LISTS.
+                          The first one contains NUMPY MATRIX for all the
+                          weight matrix in the neural network.
+                          The second one contains NUMPY ARRAY for all the
+                          biases array in the neural network.
         """
         training_input = in_out_layers[0]
         values_layers, z_values = self.generateAllLayers(training_input)
@@ -117,40 +189,58 @@ class NeuralNetwork:
 
         perfect_output = in_out_layers[1]
 
-        # cost function = sum (a_j^N - y)^2
-        cost_array = np.power(training_output - perfect_output, 2)
-        cost = sum(cost_array)
-        dcost_array = 2.0*np.array(training_output - perfect_output)
+        # cost function = sum (a_j^N - y)^2 we do not really need that
+        # cost = sum(CostFunction(training_output, perfect_output))
 
-        # (nb_layer + 1) matrix and biases vectors composed the neural network
+        # (nb_layer - 1) matrix and biases vectors composed the neural network
         dweights = [None]*(self.nb_layer+1)
         dbiases = [None]*(self.nb_layer+1)
 
-        # n = N initialization
-        der_func_z = DerReEU(z_values[self.nb_layer]) # derivative of function to z
-        der_cost_to_a = dcost_array # load the derivative of cost function to a
-        current_layer = values_layers[self.nb_layer] # take the second to last layer
-
-        der_cost_to_a = self.update(index, dweights, dbaises, der_func_z, der_cost_to_a, current_layer)
-
-        dweights[self.nb_layer] = np.zeros(
-                SIZE_OUTPUT, self.len_layers[self.nb_layer-1])
-
-
-        if self.nb_layer != 1:
-            for index in range(self.nb_layer-1, 0, -1):
-
-                dweights[self.nb_layer] = np.zeros(
-                        SIZE_OUTPUT, self.len_layers[self.nb_layer-1])
-
-        dweights[0] = np.zeros(self.len_layers[0], SIZE_INPUT)
+        der_cost_to_a = DerCostFunction(training_output, perfect_output)
+        # from (nb_layer - 2) to 0
+        for index in range(nb_layer-2, -1, -1):
+            der_func_z = DerReEU(z_values[index])
+            a = values_layers[index]
+            # derivative cost to param weights, biases and a
+            dweights[index], dbiases[index], der_cost_to_a = \
+                self.derivativeCostToParam(index, a, der_func_z, der_cost_to_a)
 
         return (dweights, dbiases)
 
-    def generateAllLayers(self, input_layer):
+
+
+    def generateOuputLayer(self, input_layer):
         """
             Method used to test the neural network model by giving it a array
-            that contains all the pixels from an handwriting image.
+            that contains all the pixels from an handwriting image. Use the same
+            principle as generateAllLayers method.
+
+            Input :
+
+            -> input_layer : NUMPY ARRAY which len is 784.
+                             it contains the color of pixel (white / black) with
+                             number notation from 0 to 1 (everything was divided
+                             by 255)
+
+            Output :
+
+            <-output_layer : NUMPY ARRAY of size 10.
+                             ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0] in the best
+                             case scenario if the input is a handwriting five.
+        """
+        new_array = input_layer
+        for index in range(0, self.nb_layer-1):
+            # print(len(new_array))
+            z = self.weights[index].dot(new_array) + self.biases[index]
+            new_array = ReEU(z)
+        # print(len(new_array))
+        return new_array
+
+
+    def generateAllLayers(self, input_layer):
+        """
+            Method used when training the neural network model by giving it a
+            array that contains all the pixels from an handwriting image.
             Each step consists in calculating f(A_i x_i + b_i) = x_(i+1).
             A_i is a weight matrix, b_i is a biases vector, x_i is the neural
             vector or layer of index i and x_(i+1) of index (i+1).
@@ -182,7 +272,7 @@ class NeuralNetwork:
         new_array = input_layer
         values_layers = [new_array]
         z_values = []
-        for index in range(0, self.nb_layer+1):
+        for index in range(0, self.nb_layer-1):
             # print(len(new_array))
             z = self.weights[index].dot(new_array) + self.biases[index]
             new_array = ReEU(z)
@@ -215,14 +305,35 @@ class NeuralNetwork:
                              number notation from 0 to 1
         """
         new_array = output_layer
-        # iteration from nb_layer => 0
-        for index in range(self.nb_layer, -1, -1):
+        # iteration from nb_layer-2 => 0
+        for index in range(self.nb_layer-2, -1, -1):
             # print(len(new_array))
             invA = np.linalg.pinv(self.weights[index])
             new_array = invA.dot(InvReEU(new_array)-self.biases[index])
         # print(len(new_array))
         return new_array
 
+
+
+    def test(self, testing_data):
+        """
+            Method used to test the neural network after its training.
+        """
+        nb_correct = 0
+        nb_test = len(testing_data)
+
+        for element in testing_data:
+            input_layer = element[0]
+            perfect_output = element[1]
+            generated_output = generateOuputLayer(input_layer)
+            # not really necessary just for information
+            cost_array = CostFunction(generated_output, perfect_output)
+            index_max_value = np.argmax(generated_output)
+            expected_answer = np.argmax(perfect_output)
+            if index_max_value == expected_answer:
+                nb_correct += 1
+
+        return nb_correct/nb_test
 
 
     def __str__(self):

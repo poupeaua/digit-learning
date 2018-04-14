@@ -104,7 +104,7 @@ def InvReEU(x):
     """
     # create an array of the same size than x with only 1 value in it
     one = np.array([1]*len(x))
-    return -np.log(one-x)
+    return -np.log(1 + 10e-16 -x)
 
 
 

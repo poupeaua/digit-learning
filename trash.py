@@ -6,6 +6,7 @@
 
 import numpy as np
 import random
+import sys
 from squishingFunc import *
 
 def testFunc(func, param):
@@ -57,18 +58,57 @@ def main():
     assert(round(t2, 11) == 0.73105857863)
     assert(round(t3, 11) == 0.26894142137)
 
+    # test putting functions in lists and use the index to get and use functions
     liste2 = [Sigmoid, DerReLU]
     array = testFunc(liste2[0], np.array([1, -1]))
     assert(round(array[0], 11) == 0.73105857863)
     assert(round(array[1], 11) == 0.26894142137)
 
+    # test the cost function calculation
     training_output = np.array([0.05, 0.82, 0.3])
     perfect_output = np.array([0, 1, 0])
     assert(round(sum(np.power(training_output-perfect_output, 2)), 4) == 0.1249)
 
+    # test the multiply function for numpy arrays
     training_output = np.array([0.05, 0.82, 0.3])
     perfect_output = np.array([0, 1, 0])
-    print(np.multiply(training_output, perfect_output))
+    new_array = np.multiply(training_output, perfect_output)
+    assert(new_array[0] == 0)
+    assert(new_array[1] == 0.82)
+    assert(new_array[2] == 0)
+
+    # test multiplication with a scalar and a matrix
+    matrix = np.ones(shape=(3, 3))
+    opposite_matrix = -matrix
+    for element in opposite_matrix:
+        for ele in element:
+            assert(ele == -1)
+
+    # test adding matrix
+    other_matrix = np.ones(shape=(3, 3))
+    new_matrix = other_matrix + opposite_matrix
+    for element in new_matrix:
+        for ele in element:
+            assert(ele == 0)
+
+    # test to handle weird operations with matrix
+    other_matrix = np.ones(shape=(3, 3))
+    other_matrix /= 3
+    other_matrix *= 9
+    other_matrix += 2
+    other_matrix -= 1
+    for element in other_matrix:
+        for ele in element:
+            assert(ele == 4)
+
+    #
+    liste = [np.ones(shape=(3, 3)), 2*np.ones(shape=(3, 3))]
+    for element in liste:
+        element *= 2
+    print(liste)
+
+
+    print("OK. No bug were found in the trash.py file.")
 
 if __name__ == "__main__":
     main()

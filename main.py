@@ -3,7 +3,7 @@
 """
     Description of the whole problem and the implementation.
 
-    Advice linter for the code :
+    Advice packages for the code :
         - linter
         - linter-pylint
         - minimap
@@ -30,23 +30,32 @@ def main():
         print("ERROR : There is no file arguement.")
         sys.exit(1)
 
-    # initilization of the dataset
+    # initilization of the training_dataset
     elapsed_time = time.time()
-    data = MNISTexample(0, 1000)
+    training_data = MNISTexample(0, 1000, bTrain=True)
     elapsed_time = time.time() - elapsed_time
     print("Time to load the training data set :", elapsed_time, "s")
-    # print(len(data[0][0]), len(data[0][1]))
 
-    # timie = time.time()
-    # timie = time.time() -timie
-    # print("ezg", timie)
+    assert(len(training_data[0][0]) == 784)
+    assert(len(training_data[0][1]) == 10)
 
     # creation of the network
     network = NeuralNetwork(sys.argv[1])
-    # print(network.generateAllLayers(data[0][0]))
+    test1 = network.generateAllLayers(training_data[0][0])[0][network.nb_layer-1]
+    assert(len(test1) == 10)
+
+    # train the network
+    network.train()
+
+    # test the network
+    testing_data = MNISTexample(0, 1000, bTrain=False)
+
+    assert(len(testing_data[0][0]) == 784)
+    assert(len(testing_data[0][1]) == 10)
 
     # generate a image thank to the neural network
-    # print(network.generateInputLayer(test))
+    test_generated_output = network.generateInputLayer(test1)
+    assert(len(test_generated_output) == 784)
 
 if __name__ == '__main__':
     main()
