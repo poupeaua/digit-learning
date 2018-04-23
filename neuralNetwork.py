@@ -10,6 +10,7 @@ import numpy as np
 from squishingFunc import *
 from externalFunc import *
 import random
+from progressbar import *
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
 SIZE_OUTPUT = 10 # number of numbers between 0 and 9
@@ -20,7 +21,7 @@ class NeuralNetwork:
         Class neural network.
     """
 
-    def __init__(self, entry):
+    def __init__(self, len_layers, squishing_funcs, dir_load):
         """
             Initialize an object NeuralNetwork.
 
@@ -33,37 +34,46 @@ class NeuralNetwork:
                       ex of entry : network1.txt
         """
 
-        document = open(entry, "r")
-
         # number of layers in the neural network + output and input layer
-        self.nb_layer = int(document.readline(1)) + 2
+        self.nb_layer = len(len_layers)
 
         # number of neurals in each layer
-        self.len_layers = [None]*self.nb_layer
-        self.len_layers[0] = SIZE_INPUT
-        index = 1
-        for line in document:
-            string = line[:-1]
-            if string != "":
-                self.len_layers[index] = int(string)
-                index += 1
-        self.len_layers[self.nb_layer-1] = SIZE_OUTPUT
+        self.len_layers = len_layers
 
         # (nb_layer - 1) matrix and biases vectors composed the neural network
         self.weights = [None]*(self.nb_layer-1)
         self.biases = [None]*(self.nb_layer-1)
 
         if self.nb_layer > 2:
-            for index in range(0, self.nb_layer-1):
-                self.weights[index] = np.random.rand(
-                        self.len_layers[index+1], self.len_layers[index])
-                self.biases[index] = np.random.rand(
-                        self.len_layers[index+1])
+            self.initializeWeightsBiases(dir_load)
         else:
             print("ERROR : The number of layer is inferior to 3.")
             print("nb_layer = ", self.nb_layer)
             sys.exit(1)
 
+        # squishing functions used for each layer. Except the last one,
+        # because the last layer doesn't calculate another layer.
+        self.squishing_funcs = squishing_funcs
+
+
+
+    def initializeWeightsBiases(self, dir_load):
+        """
+            Method used to initialize the matrix weights and the vectors biases.
+            If load == None, it means that this will not load weights and biases
+            Else load == "dir/doc.txt" load weight and biases from that doc
+        """
+        if dir_load == None:
+            for index in range(0, self.nb_layer-1):
+                self.weights[index] = 0.01*((-1)**index)*np.random.rand(
+                        self.len_layers[index+1], self.len_layers[index])
+                self.biases[index] = 0.01*((-1)**index)*np.random.rand(
+                        self.len_layers[index+1])
+        else:
+            for index in range(0, self.nb_layer-1):
+                data = np.load(dir_load+"/"+str(index)+".npz")
+                self.weights[index] = data["w"]
+                self.biases[index] = data["b"]
 
 
     def initializeEmptyDParamArrays(self):
@@ -74,8 +84,8 @@ class NeuralNetwork:
         dweights = [None]*(self.nb_layer-1)
         dbiases = [None]*(self.nb_layer-1)
         for index in range(0, self.nb_layer-1):
-            dweights[index] = np.zeros(
-                    self.len_layers[index+1], self.len_layers[index])
+            dweights[index] = np.zeros(shape=(
+                    self.len_layers[index+1], self.len_layers[index]))
             dbiases[index] = np.zeros(
                     self.len_layers[index+1])
         return (dweights, dbiases)
@@ -88,43 +98,51 @@ class NeuralNetwork:
 
             If batch_size == 1 => individual training
             Else               => mini_batching training
+
+            Repeat is the number of repetition of learning for each batch.
         """
         size_training_data = len(training_data)
 
+        gdf_func = gradientDescentFactor[0]
+        gdf_param = gradientDescentFactor[1]
 
-        for i in range(0, round(size_training_data/batch_size)-1, 1):
-
+        bar2 = ProgressBar()
+        print("Train process :")
+        for i in bar2(range(0, round(size_training_data/batch_size))):
             # we can choose how many time we want to repeat the operation
             # in order to get a deeper and a more efficent learning
-            for nb_repetition in range(repeat):
+            for nb_repetition in range(0, repeat+1):
 
                 (dw,db) = self.initializeEmptyDParamArrays()
 
                 # iteration on the size of a batch
-                for index in range(i*batch_size, (i+1)*batch_size-1):
-
-                    # generate the image to use for the training and its
+                for index in range(i*batch_size, (i+1)*batch_size):
+                    # extract the image to use for the training and its
                     # expected output
                     in_out_layers = training_data[index]
                     (dw2, db2) = self.calculateNegGradient(in_out_layers)
 
                     if batch_size == 1:
                         dw, db = dw2, db2
-                        break
-
-                    # add the gradient due to weights and biases
-                    for index2 in range(0, self.nb_layer-1):
-                        dw[index2] += dw2[index2]
-                        db[index2] += db2[index2]
+                    else:
+                        # add the gradient due to weights and biases
+                        for index2 in range(0, self.nb_layer-1):
+                            dw[index2] += dw2[index2]
+                            db[index2] += db2[index2]
 
                 for index in range(0, self.nb_layer-1):
 
                     # apply the gradient descent factor to all the weights
                     # and biases gradients
                     # morevover, divide by the batch_size to normalize the grad
-                    dw[index] *= gradientDescentFactor(nb_repetition)/batch_size
-                    db[index] *= gradientDescentFactor(nb_repetition)/batch_size
+                    dw[index] *= 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
+                    db[index] *= 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
 
+                    # OVERHERE
+                    # print("Sum dw = ", np.sum(dw[index]))
+                    # print("Sum db = ", np.sum(db[index]))
+
+                    # print(dw[index])
                     # finally update the weights and the biases in the neural
                     # network
                     self.weights[index] += dw[index]
@@ -142,7 +160,7 @@ class NeuralNetwork:
         row = self.len_layers[index+1]
         column = self.len_layers[index]
 
-        dweight_matrix = np.zeros(row, column)
+        dweight_matrix = np.zeros(shape=(row, column))
         dbiases_array = np.zeros(row)
         da_array = np.zeros(column)
 
@@ -185,7 +203,7 @@ class NeuralNetwork:
         """
         training_input = in_out_layers[0]
         values_layers, z_values = self.generateAllLayers(training_input)
-        training_output = values_layers[self.nb_layer+1]
+        training_output = values_layers[self.nb_layer-1]
 
         perfect_output = in_out_layers[1]
 
@@ -198,12 +216,16 @@ class NeuralNetwork:
 
         der_cost_to_a = DerCostFunction(training_output, perfect_output)
         # from (nb_layer - 2) to 0
-        for index in range(nb_layer-2, -1, -1):
-            der_func_z = DerReEU(z_values[index])
+        for index in range(self.nb_layer-2, -1, -1):
+            # extract the good squishing function for this layer
+            # [2] means the derivative function not normal or inverse one
+            DerFunction = self.squishing_funcs[index][2]
+            der_func_z = DerFunction(z_values[index])
             a = values_layers[index]
             # derivative cost to param weights, biases and a
             dweights[index], dbiases[index], der_cost_to_a = \
                 self.derivativeCostToParam(index, a, der_func_z, der_cost_to_a)
+
 
         return (dweights, dbiases)
 
@@ -232,7 +254,10 @@ class NeuralNetwork:
         for index in range(0, self.nb_layer-1):
             # print(len(new_array))
             z = self.weights[index].dot(new_array) + self.biases[index]
-            new_array = ReEU(z)
+            # extract the good squishing function for this layer
+            # [0] means the function not inverse or derivative one
+            Function = self.squishing_funcs[index][0]
+            new_array = Function(z)
         # print(len(new_array))
         return new_array
 
@@ -275,7 +300,10 @@ class NeuralNetwork:
         for index in range(0, self.nb_layer-1):
             # print(len(new_array))
             z = self.weights[index].dot(new_array) + self.biases[index]
-            new_array = ReEU(z)
+            # extract the good squishing function for this layer
+            # [0] means the function not inverse or derivative one
+            Function = self.squishing_funcs[index][0]
+            new_array = Function(z)
             values_layers.append(new_array)
             z_values.append(z)
         # print(len(new_array))
@@ -309,9 +337,24 @@ class NeuralNetwork:
         for index in range(self.nb_layer-2, -1, -1):
             # print(len(new_array))
             invA = np.linalg.pinv(self.weights[index])
-            new_array = invA.dot(InvReEU(new_array)-self.biases[index])
+            # extract the good squishing function for this layer
+            # [1] means the inverse function not inormal or derivative one
+            InvFunction = self.squishing_funcs[index][1]
+            new_array = invA.dot(InvFunction(new_array)-self.biases[index])
         # print(len(new_array))
         return new_array
+
+
+
+    def save(self, dir_save):
+        """
+            Method used to save the neural network.
+            In fact, it simply writes every matrix weights and biases in the
+            document named doc_save.
+        """
+        for index in range(0, self.nb_layer-1):
+            np.savez(dir_save+"/"+str(index), w=self.weights[index],
+                    b=self.biases[index])
 
 
 
@@ -325,17 +368,25 @@ class NeuralNetwork:
         for element in testing_data:
             input_layer = element[0]
             perfect_output = element[1]
-            generated_output = generateOuputLayer(input_layer)
+            generated_output = self.generateOuputLayer(input_layer)
             # not really necessary just for information
             cost_array = CostFunction(generated_output, perfect_output)
             cost = sum(cost_array)
+            # print(cost)
             index_max_value = np.argmax(generated_output)
+
             expected_answer = np.argmax(perfect_output)
             if index_max_value == expected_answer:
                 nb_correct += 1
 
-        return nb_correct/nb_test
+        print("Generated ouput", generated_output)
+        print("Number =", index_max_value)
+        print("Perfect output", perfect_output)
+        print("Number =", expected_answer)
+
+        return (nb_test-nb_correct)/nb_test
 
 
-    def __str__(self):
-        return "hop"
+    def display(self):
+        for index in range(0, nb_layer-1):
+            self.weights[index]

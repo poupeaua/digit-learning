@@ -20,7 +20,6 @@
 import numpy as np
 import sys
 import time
-from progressbar import *
 from mnistHandwriting import *
 from neuralNetwork import *
 from argumentsManager import *
@@ -32,42 +31,40 @@ def main():
         Main function. It calls everything to make the whole thing work
     """
     args = ArgsManager(sys.argv)
-    args.display()
-
-    liste = [1]*1000000
-    widget = ['Test: ', Percentage(), ' ', Bar(marker='0',left='[',right=']'),
-           ' ', ETA(), ' ', FileTransferSpeed()]
-    bar = ProgressBar()
-    a = 0
-    for i in bar(liste):
-        a += 1
+    # if args.display:
+    #     args.display()
 
     # initilization of the training_dataset
-    elapsed_time = time.time()
-    training_data = MNISTexample(0, 1000, bTrain=True)
-    elapsed_time = time.time() - elapsed_time
-    print("Time to load the training data set :", elapsed_time, "s")
-
-    assert(len(training_data[0][0]) == 784)
-    assert(len(training_data[0][1]) == 10)
+    training_data = MNISTexample(0, args.learning_size, bTrain=True)
 
     # creation of the network
-    network = NeuralNetwork(sys.argv[1])
-    test1 = network.generateAllLayers(training_data[0][0])[0][network.nb_layer-1]
-    assert(len(test1) == 10)
+    network = NeuralNetwork(args.neural_network, args.squishing_funcs,
+                args.dir_load)
 
     # train the network
-    network.train()
+    network.train(training_data, args.batches_size, args.grad_desc_factor,
+                   args.repeat)
+
+    # save the network after training (if args.save != False)
+    if args.dir_save != None:
+        network.save(args.dir_save)
 
     # test the network
-    testing_data = MNISTexample(0, 1000, bTrain=False)
+    testing_data = MNISTexample(0, args.testing_size, bTrain=False)
+    error_rate = network.test(testing_data)
+    print("The error rate is", error_rate)
 
-    assert(len(testing_data[0][0]) == 784)
-    assert(len(testing_data[0][1]) == 10)
+    # temporal tests
+    # assert(len(training_data[0][0]) == 784)
+    # assert(len(training_data[0][1]) == 10)
+    # assert(len(testing_data[0][0]) == 784)
+    # assert(len(testing_data[0][1]) == 10)
+    # test1 = network.generateOuputLayer(training_data[0][0])
+    # assert(len(test1) == 10)
+    # test_generated_output = network.generateInputLayer(test1)
+    # assert(len(test_generated_output) == 784)
 
-    # generate a image thank to the neural network
-    test_generated_output = network.generateInputLayer(test1)
-    assert(len(test_generated_output) == 784)
+
 
 
 

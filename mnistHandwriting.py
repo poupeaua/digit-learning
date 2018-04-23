@@ -5,9 +5,11 @@
     File mnistHandwriting.py used to load the data.
 """
 
+
 from struct import unpack
 from PIL import Image
 import numpy as np
+from progressbar import *
 
 
 def MNISTexample(startN, howMany, bTrain=True, only01=False):
@@ -75,6 +77,8 @@ def MNISTexample(startN, howMany, bTrain=True, only01=False):
 
     T = [] # list of (input, correct label) pairs
 
+    # iteration on all the images with a progress bar to follow the process
+    # bar = ProgressBar()
     for _ in range(0, howMany):
         # get the input from the image file
         x = []

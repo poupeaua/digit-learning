@@ -28,7 +28,7 @@ def InvSigmoid(x):
         x in ]0, 1[ and return a value in [-inf, +inf].
         y = 1/(1 + np.exp(-x)) <=> x = ln(y) - ln(1)
     """
-    return np.log(x) - np.log(1-x)
+    return np.log(x + 10e-5) - np.log(1 + 10e-5 - x)
 
 
 
@@ -38,7 +38,7 @@ def DerSigmoid(x):
         x in [-inf, +inf] and return a value in ]0, 1[.
         Sigmoid'(x) = (1/2)(1/(cosh(x)+1))
     """
-    return (1/2)(1/(np.cosh(x)+1))
+    return (1/2)*(1/(np.cosh(x)+1))
 
 # ------------------------------ ReLU --------------------------------
 

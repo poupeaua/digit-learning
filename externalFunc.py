@@ -14,6 +14,7 @@ import numpy as np
 def NegPower(n, value=1.3):
     """
         Generate a natural gradient descent factor.
+        The slope seems good for value = 1.3.
 
         Inputs :
 
@@ -51,7 +52,7 @@ def CostFunction(output_layer, perfect_output):
         <-          : NUMPY ARRAY which size is equal to the size of the inputs
     """
     assert(len(output_layer) == len(perfect_output))
-    return np.power(training_output - perfect_output, 2)
+    return np.power(output_layer - perfect_output, 2)
 
 
 
@@ -61,7 +62,7 @@ def DerCostFunction(output_layer, perfect_output):
         the cost array.
         Exact same inputs and output as the function above.
     """
-    return 2.0*np.array(training_output - perfect_output)
+    return 2.0*np.array(output_layer - perfect_output)
 
 
 

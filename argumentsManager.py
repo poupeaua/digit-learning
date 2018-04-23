@@ -7,7 +7,7 @@
     parameters by creating a class to manage them.
 """
 
-import sys
+import sys, os
 import numpy as np
 from externalFunc import *
 from squishingFunc import *
@@ -19,10 +19,12 @@ SIZE_TRAINING = 60000
 SIZE_TESTING = 10000
 # you can choose the value for the following global constant
 REPETITION_LIMIT = 1000
-POSSIBLE_ARGS = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts"]
+POSSIBLE_ARGS = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts", "-init=S", "-S"]
 POSSIBLE_SQUISHING_FUNC = ["Sigmoid", "ReEU", "ReLU"]
 POSSIBLE_GRAD_DESC_FACT_FUNC = ["NegPower{anyPosFloat}",
     "Constant{anyPosFloat}"]
+
+
 
 class ArgsManager:
     """
@@ -43,11 +45,14 @@ class ArgsManager:
         self.repeat = 0
         self.learning_size = 60000
         self.testing_size = 10000
+        self.dir_save = None
+        self.dir_load = None
 
         # analyse the given arguments and set them in the class
         self.analyseArgs(list_args)
 
         # in case there was no choice for the squishing funcs in the arguments
+        # set the squishing func to default mode => Sigmoid
         if self.squishing_funcs == None:
             nb_layer = len(self.neural_network)
             self.squishing_funcs = [(Sigmoid, InvSigmoid, DerSigmoid)] \
@@ -75,16 +80,17 @@ class ArgsManager:
         i = 2
         while i < nb_arg:
             curr_arg = sys.argv[i]
-            if curr_arg in POSSIBLE_ARGS:
-                try:
-                    arg = sys.argv[i+1]
-                except:
-                    print("ERROR : There is no argument after", curr_arg, ".")
+            if curr_arg != "-S":
+                if curr_arg in POSSIBLE_ARGS:
+                    try:
+                        arg = sys.argv[i+1]
+                    except:
+                        print("ERROR : There is no argument after", curr_arg, ".")
+                        sys.exit(1)
+                else:
+                    print("ERROR : The pre-parameter", curr_arg, "doesn't exist.")
+                    print("The existing ones are", POSSIBLE_ARGS)
                     sys.exit(1)
-            else:
-                print("ERROR : The pre-parameter", curr_arg, "doesn't exist.")
-                print("The existing ones are", POSSIBLE_ARGS)
-                sys.exit(1)
             if curr_arg == "-bs":
                 # Batches Size
                 self.checkBatchesSizeArg(arg)
@@ -103,6 +109,13 @@ class ArgsManager:
             elif curr_arg == "-ts":
                 # Testing size
                 self.checkTestingSizeArg(arg)
+            elif curr_arg == "-init=S":
+                # init a directory to enter save mode for the neural network
+                self.checkInitArg(arg, list_args[1])
+            elif curr_arg == "-S":
+                # save the neural network
+                self.checkSaveArg(list_args[1])
+                i -=1
             i += 2
 
 
@@ -111,6 +124,13 @@ class ArgsManager:
         """
             Check the required argument neural network document.
         """
+        if os.path.isdir(document):
+            # because this is a directory we have a load
+            self.dir_load = document
+            # ./main.py dir1/dir2/dir => document is a dir
+            if document[-1] == "/":
+                document = document[:-1] # remove the slash /
+            document += "/nw.txt"
         try:
             document = open(document, "r")
         except IOError as details:
@@ -120,12 +140,13 @@ class ArgsManager:
         else:
             first_line = document.readline(1)
             if not first_line.isdigit() or int(first_line) <= 0:
-                print("ERROR : The number of middle layer is equal to",
+                print("ERROR : The number of middle layers is equal to",
                     first_line, ".")
                 print("It has to be a strictly positive integer.")
                 sys.exit(1)
             else:
-                len_layers = np.zeros(int(first_line) + 2)
+                len_layers = [0] * (int(first_line) + 2)
+                # len_layers = np.ones(int(first_line) + 2) #float find solution
             len_layers[0] = SIZE_INPUT
             index = 1
             for line in document:
@@ -140,6 +161,7 @@ class ArgsManager:
                         len_layers[index] = int(string)
                         index += 1
             len_layers[len(len_layers)-1] = SIZE_OUTPUT
+            document.close()
             # set the attribute neural network to the len_layer
             self.neural_network = len_layers
 
@@ -229,8 +251,8 @@ class ArgsManager:
         if not arg.isdigit():
             print("ERROR : The repeat argument", arg, "is not a integer.")
             sys.exit(1)
-        elif int(arg) <= 0:
-            print("ERROR : The repeat argument", arg, "is not a strictly"
+        elif int(arg) < 0:
+            print("ERROR : The repeat argument", arg, "is not a"
                 " povitive integer.")
             sys.exit(1)
         elif int(arg) > REPETITION_LIMIT:
@@ -262,6 +284,7 @@ class ArgsManager:
             self.learning_size = int(arg)
 
 
+
     def checkTestingSizeArg(self, arg):
         """
             Check the optional argument testing size.
@@ -280,6 +303,46 @@ class ArgsManager:
             sys.exit(1)
         else:
             self.testing_size = int(arg)
+
+
+
+    def checkInitArg(self, arg, main_dir):
+        """
+            Method used to check if the arg for the -init=S
+            pre-parameter is good.
+        """
+        if os.path.isdir(arg):
+            print("ERROR : The path", arg, "already exists. You may choose"
+                " another path to initialize a new Neural Network directory.")
+            print("If you only want to save the current Neural Network after"
+                " training, you may want to replace -init=S", arg, " with -S.")
+            sys.exit(1)
+        else:
+            # first time so we have to edit it so initialize everything
+            if arg[-1] == "/":
+                arg = arg[:-1] # remove the slash /
+            os.mkdir(arg)
+            os.system("cp " + main_dir + " " + arg)
+            os.system("mv " + arg + "/*.txt " + arg + "/nw.txt")
+            print("The directory", arg, "has just been created.")
+            # as we have a save directory it will save the data in the docs
+            self.dir_save = arg
+
+
+
+    def checkSaveArg(self, main_dir):
+        """
+            Method used to check the save argument.
+        """
+        if not os.path.isdir(main_dir):
+            print("ERROR : Since", main_dir, "is a not a directory,"
+                " you are not allowed to save any data in it")
+            print("You may want to create a directory using -init=S"
+                " dirname first.")
+            sys.exit(1)
+        else:
+            self.dir_save = main_dir
+
 
 
     def display(self):

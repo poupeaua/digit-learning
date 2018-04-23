@@ -122,6 +122,18 @@ def main():
     assert(arg[0:8] == "constant")
     assert(arg[8:] == "100")
 
+    # test np.zero and max value matrix and sum matrix
+    matrix = np.ones(shape=(3, 3))
+    matrix[0][2] = 7
+    matrix[1][2] = 5
+    assert(np.max(matrix) == 7)
+    # print(np.sum(matrix))
+
+    # test on strings
+    string = "allez"
+    string = string[:-1]
+    assert(string == "alle")
+
 
     print("OK. No bug were found in the trash.py file.")
 
