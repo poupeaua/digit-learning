@@ -44,17 +44,18 @@ def main():
     # train the network
     network.train(training_data, args.batches_size, args.grad_desc_factor,
                    args.repeat)
-
-    # save the network after training (if args.save != False)
+    #
+    # # save the network after training (if args.save != False)
     if args.dir_save != None:
         network.save(args.dir_save)
-
-    # test the network
+    #
+    # # test the network
     testing_data = MNISTexample(0, args.testing_size, bTrain=False)
     error_rate = network.test(testing_data)
-    print("The error rate is", error_rate)
+    # print("The error rate is", error_rate)
 
     # temporal tests
+    # print(training_data[0][1])
     # assert(len(training_data[0][0]) == 784)
     # assert(len(training_data[0][1]) == 10)
     # assert(len(testing_data[0][0]) == 784)
@@ -63,7 +64,10 @@ def main():
     # assert(len(test1) == 10)
     # test_generated_output = network.generateInputLayer(test1)
     # assert(len(test_generated_output) == 784)
-
+    # for _ in range(10):
+    #     network.train(training_data, args.batches_size, args.grad_desc_factor,
+    #                    args.repeat)
+    #     error_rate = network.test(testing_data)
 
 
 

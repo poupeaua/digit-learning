@@ -124,6 +124,7 @@ class NeuralNetwork:
 
                     if batch_size == 1:
                         dw, db = dw2, db2
+                        break
                     else:
                         # add the gradient due to weights and biases
                         for index2 in range(0, self.nb_layer-1):
@@ -365,7 +366,9 @@ class NeuralNetwork:
         nb_correct = 0
         nb_test = len(testing_data)
 
-        for element in testing_data:
+        bar3 = ProgressBar()
+        print("Test process")
+        for element in bar3(testing_data):
             input_layer = element[0]
             perfect_output = element[1]
             generated_output = self.generateOuputLayer(input_layer)
