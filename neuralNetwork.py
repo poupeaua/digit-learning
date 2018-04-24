@@ -351,6 +351,10 @@ class NeuralNetwork:
             Method used to save the neural network.
             In fact, it simply writes every matrix weights and biases in the
             document named doc_save.
+
+            Moreover, this function also writes information about the
+            size of the training data used to train the model during the
+            execution and  
         """
         for index in range(0, self.nb_layer-1):
             np.savez(dir_save+"/"+str(index), w=self.weights[index],
