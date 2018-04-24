@@ -324,7 +324,7 @@ class ArgsManager:
             os.mkdir(arg)
             os.system("cp " + main_dir + " " + arg)
             os.system("mv " + arg + "/*.txt " + arg + "/nw.txt")
-            print("The directory", arg, "has just been created.")
+            print("\nThe directory", arg, "has just been created.\n")
             # as we have a save directory it will save the data in the docs
             self.dir_save = arg
 

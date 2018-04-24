@@ -7,7 +7,9 @@
 import numpy as np
 import random
 import sys
+import time
 from squishingFunc import *
+from externalFunc import progressbar
 
 def testFunc(func, param):
     """
@@ -134,8 +136,13 @@ def main():
     string = string[:-1]
     assert(string == "alle")
 
+    # test a progress bar
+    for i in progressbar(range(15), "Computing: ", 40):
+        time.sleep(0.01) # any calculation you need
 
     print("OK. No bug were found in the trash.py file.")
+
+
 
 if __name__ == "__main__":
     main()

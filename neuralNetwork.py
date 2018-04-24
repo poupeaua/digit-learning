@@ -10,7 +10,7 @@ import numpy as np
 from squishingFunc import *
 from externalFunc import *
 import random
-from progressbar import *
+# from progressbar import *
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
 SIZE_OUTPUT = 10 # number of numbers between 0 and 9
@@ -106,9 +106,9 @@ class NeuralNetwork:
         gdf_func = gradientDescentFactor[0]
         gdf_param = gradientDescentFactor[1]
 
-        bar2 = ProgressBar()
-        print("Train process :")
-        for i in bar2(range(0, round(size_training_data/batch_size))):
+        # bar2 = ProgressBar()
+        for i in progressbar(range(0, round(size_training_data/batch_size)),
+                            "Computing train process : ",40):
             # we can choose how many time we want to repeat the operation
             # in order to get a deeper and a more efficent learning
             for nb_repetition in range(0, repeat+1):
@@ -365,7 +365,9 @@ class NeuralNetwork:
         nb_correct = 0
         nb_test = len(testing_data)
 
-        for element in testing_data:
+
+        for element in progressbar(testing_data,
+                        "Computing test process  : ",40):
             input_layer = element[0]
             perfect_output = element[1]
             generated_output = self.generateOuputLayer(input_layer)
@@ -379,10 +381,10 @@ class NeuralNetwork:
             if index_max_value == expected_answer:
                 nb_correct += 1
 
-        print("Generated ouput", generated_output)
-        print("Number =", index_max_value)
-        print("Perfect output", perfect_output)
-        print("Number =", expected_answer)
+        # print("Generated ouput", generated_output)
+        # print("Number =", index_max_value)
+        # print("Perfect output", perfect_output)
+        # print("Number =", expected_answer)
 
         return (nb_test-nb_correct)/nb_test
 
