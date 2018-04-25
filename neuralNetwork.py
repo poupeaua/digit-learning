@@ -388,10 +388,10 @@ class NeuralNetwork:
             index_max_value = np.argmax(generated_output)
             expected_answer = np.argmax(perfect_output)
 
-            print("Generated ouput", generated_output)
-            print("Number =", index_max_value)
-            print("Perfect output", perfect_output)
-            print("Number =", expected_answer)
+            # print("Generated ouput", generated_output)
+            # print("Number =", index_max_value)
+            # print("Perfect output", perfect_output)
+            # print("Number =", expected_answer)
 
             if index_max_value == expected_answer:
                 nb_correct += 1
