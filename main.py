@@ -52,7 +52,7 @@ def main():
     # # test the network
     testing_data = MNISTexample(0, args.testing_size, bTrain=False)
     error_rate = network.test(testing_data)
-    # print("The error rate is", error_rate)
+    print("The error rate is", error_rate)
 
     # temporal tests
     # print(training_data[0][1])

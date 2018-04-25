@@ -9,7 +9,8 @@
 from struct import unpack
 from PIL import Image
 import numpy as np
-from progressbar import *
+from externalFunc import progressbar
+# from progressbar import *
 
 
 def MNISTexample(startN, howMany, bTrain=True, only01=False):
@@ -56,9 +57,11 @@ def MNISTexample(startN, howMany, bTrain=True, only01=False):
     if bTrain:
         fImages = open("data/train-images-idx3-ubyte",'rb')
         fLabels = open('data/train-labels-idx1-ubyte','rb')
+        type_data = "training data : "
     else:
         fImages = open('data/t10k-images-idx3-ubyte','rb')
         fLabels = open('data/t10k-labels-idx1-ubyte','rb')
+        type_data = "testing data  : "
 
     # read the header information in the images file.
     s1, s2, s3, s4 = fImages.read(4), fImages.read(4), fImages.read(4), fImages.read(4)
@@ -79,7 +82,8 @@ def MNISTexample(startN, howMany, bTrain=True, only01=False):
 
     # iteration on all the images with a progress bar to follow the process
     # bar = ProgressBar()
-    for _ in range(0, howMany):
+
+    for _ in progressbar(range(0, howMany), "Importing " + type_data, 40):
         # get the input from the image file
         x = []
         for i in range(0, rowsIm*colsIm):

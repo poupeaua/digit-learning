@@ -323,8 +323,11 @@ class ArgsManager:
                 arg = arg[:-1] # remove the slash /
             os.mkdir(arg)
             os.system("cp " + main_dir + " " + arg)
+            # add the nw .txt file in the directory
             os.system("mv " + arg + "/*.txt " + arg + "/nw.txt")
-            print("The directory", arg, "has just been created.")
+            # add the info .txt file in the directory
+            os.system("touch " + arg + "/info" + arg.split("/")[-1] + ".cvs")
+            print("\nThe directory", arg, "has just been created.\n")
             # as we have a save directory it will save the data in the docs
             self.dir_save = arg
 
