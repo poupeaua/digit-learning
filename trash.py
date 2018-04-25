@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+import csv
 import random
 import sys
 import time
@@ -136,9 +137,17 @@ def main():
     string = string[:-1]
     assert(string == "alle")
 
+    res = ["1", "2", "3"]
+    csvfile = "test.csv"
+    document = open(csvfile, "r+")
+    writer = csv.writer(document, delimiter=',', lineterminator='\n')
+    reader = csv.reader(document)
+    for row in reader:
+        print(row)
+
     # test a progress bar
-    for i in progressbar(range(15), "Computing: ", 40):
-        time.sleep(0.01) # any calculation you need
+    # for i in progressbar(range(15), "Computing: ", 40):
+    #     time.sleep(0.01) # any calculation you need
 
     print("OK. No bug were found in the trash.py file.")
 

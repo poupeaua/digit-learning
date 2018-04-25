@@ -363,7 +363,7 @@ class NeuralNetwork:
                     b=self.biases[index])
 
         # add information in the information file
-        info_file = dir_save + "/info" + dir_save.split("/")[-1] + ".cvs"
+        info_file = dir_save + "/info" + dir_save.split("/")[-1] + ".csv"
         # document = open(info_file, "w")
 
 
@@ -396,7 +396,10 @@ class NeuralNetwork:
             if index_max_value == expected_answer:
                 nb_correct += 1
 
-
+        print("Generated ouput", generated_output)
+        print("Number =", index_max_value)
+        print("Perfect output", perfect_output)
+        print("Number =", expected_answer)
 
         return (nb_test-nb_correct)/nb_test
 

@@ -325,8 +325,8 @@ class ArgsManager:
             os.system("cp " + main_dir + " " + arg)
             # add the nw .txt file in the directory
             os.system("mv " + arg + "/*.txt " + arg + "/nw.txt")
-            # add the info .txt file in the directory
-            os.system("touch " + arg + "/info" + arg.split("/")[-1] + ".cvs")
+            # add the info .csv file in the directory
+            os.system("touch " + arg + "/info.csv")
             print("\nThe directory", arg, "has just been created.\n")
             # as we have a save directory it will save the data in the docs
             self.dir_save = arg
