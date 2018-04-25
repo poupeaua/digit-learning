@@ -140,8 +140,8 @@ def main():
     res = ["1", "2", "3"]
     csvfile = "test.csv"
     document = open(csvfile, "r+")
-    writer = csv.writer(document, delimiter=',', lineterminator='\n')
-    reader = csv.reader(document)
+    writer = csv.writer(document, delimiter='|', lineterminator='\n')
+    reader = csv.reader(document, delimiter='|', lineterminator='\n')
     for row in reader:
         print(row)
 
