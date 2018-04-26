@@ -19,9 +19,9 @@
 
 import numpy as np
 import sys, time
-from mnistHandwriting import *
-from neuralNetwork import *
-from argumentsManager import *
+from src.mnistHandwriting import *
+from src.neuralNetwork import *
+from src.argumentsManager import *
 
 
 # main function to execute the whole thing
