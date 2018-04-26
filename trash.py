@@ -138,50 +138,12 @@ def main():
     string = string[:-1]
     assert(string == "alle")
 
-    res = ["5000", "5000"]
-    csvfile = "test.csv"
-    document = open(csvfile, "r")
-    reader = csv.reader(document, delimiter='|', lineterminator='\n')
-    memory = []
-    for row in reader:
-        memory.append(row)
-        print(row)
-    document.close()
-
-    document = open(csvfile, "w")
-    writer = csv.writer(document, delimiter='|', lineterminator='\n')
-    writer.writerow(memory[0])
-    writer.writerow(res)
-    for index, element in enumerate(memory[1:]):
-        writer.writerow(element)
-    document.close()
-
-    string  = "123456"
-    print(string[:15])
+    # test on string
+    string = "gegz"
+    assert(string[:15] == "gegz")
 
     now = datetime.datetime.now()
     date = now.strftime("%Y-%m-%d %H:%M")
-    # print("Current date and time using str method of datetime object:")
-    # print(str(now))
-    #
-    # print("Current date and time using instance attributes:")
-    # print("Current year: %d" % now.year)
-    # print("Current month: %d" % now.month)
-    # print("Current day: %d" % now.day)
-    # print("Current hour: %d" % now.hour)
-    # print("Current minute: %d" % now.minute)
-    # print("Current second: %d" % now.second)
-    # print("Current microsecond: %d" % now.microsecond)
-    #
-    # print("Current date and time using strftime:")
-    # print(now.strftime("%Y-%m-%d %H:%M"))
-    #
-    # print("Current date and time using isoformat:")
-    # print(now.isoformat())
-
-    # test a progress bar
-    # for i in progressbar(range(15), "Computing: ", 40):
-    #     time.sleep(0.01) # any calculation you need
 
     print("OK. No bug were found in the trash.py file.")
 
