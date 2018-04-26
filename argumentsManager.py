@@ -7,7 +7,7 @@
     parameters by creating a class to manage them.
 """
 
-import sys, os
+import sys, os, csv
 import numpy as np
 from externalFunc import *
 from squishingFunc import *
@@ -19,7 +19,9 @@ SIZE_TRAINING = 60000
 SIZE_TESTING = 10000
 # you can choose the value for the following global constant
 REPETITION_LIMIT = 1000
-POSSIBLE_ARGS = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts", "-init=S", "-S"]
+POSSIBLE_ARGS_WITHOUT_PARAM = ["-S", "-v", "-I"]
+POSSIBLE_ARGS_WITH_PARAM = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts", "-init=S"]
+ALL_POSSIBLE_ARGS = POSSIBLE_ARGS_WITH_PARAM + POSSIBLE_ARGS_WITHOUT_PARAM
 POSSIBLE_SQUISHING_FUNC = ["Sigmoid", "ReEU", "ReLU"]
 POSSIBLE_GRAD_DESC_FACT_FUNC = ["NegPower{anyPosFloat}",
     "Constant{anyPosFloat}"]
@@ -41,12 +43,17 @@ class ArgsManager:
         self.neural_network = None
         self.batches_size = 1
         self.squishing_funcs = None
+        self.squishing_funcs_str = None
         self.grad_desc_factor = (NegPower, 1.3)
+        self.grad_desc_factor_str = "NegPower1.3"
         self.repeat = 0
         self.learning_size = 60000
         self.testing_size = 10000
         self.dir_save = None
         self.dir_load = None
+
+        self.to_display = False
+        self.to_info = True
 
         # analyse the given arguments and set them in the class
         self.analyseArgs(list_args)
@@ -57,6 +64,7 @@ class ArgsManager:
             nb_layer = len(self.neural_network)
             self.squishing_funcs = [(Sigmoid, InvSigmoid, DerSigmoid)] \
                     * (nb_layer-1)
+            self.squishing_funcs_str = "Sigmoid"
 
 
 
@@ -80,16 +88,18 @@ class ArgsManager:
         i = 2
         while i < nb_arg:
             curr_arg = sys.argv[i]
-            if curr_arg != "-S":
-                if curr_arg in POSSIBLE_ARGS:
+            if curr_arg not in POSSIBLE_ARGS_WITHOUT_PARAM:
+                if curr_arg in POSSIBLE_ARGS_WITH_PARAM:
                     try:
                         arg = sys.argv[i+1]
                     except:
-                        print("ERROR : There is no argument after", curr_arg, ".")
+                        print("ERROR : There is no argument after", curr_arg,
+                            ".")
                         sys.exit(1)
                 else:
-                    print("ERROR : The pre-parameter", curr_arg, "doesn't exist.")
-                    print("The existing ones are", POSSIBLE_ARGS)
+                    print("ERROR : The pre-parameter", curr_arg,
+                        "doesn't exist.")
+                    print("The existing ones are", ALL_POSSIBLE_ARGS)
                     sys.exit(1)
             if curr_arg == "-bs":
                 # Batches Size
@@ -115,7 +125,17 @@ class ArgsManager:
             elif curr_arg == "-S":
                 # save the neural network
                 self.checkSaveArg(list_args[1])
-                i -=1
+                i -= 1
+            elif curr_arg == "-v" or curr_arg == "-verbose":
+                # verbose activated
+                self.to_display = True
+                i -= 1
+            elif curr_arg == "-NO-INFO":
+                # to say that this is a test => do NOT put info in the cvs file
+                self.to_info = False
+            else:
+                print("ERROR : The argument", curr_arg, "doesn't exist.")
+                sys.exit(1)
             i += 2
 
 
@@ -138,8 +158,8 @@ class ArgsManager:
             print("Information about the error :", details)
             sys.exit(1)
         else:
-            first_line = document.readline(1)
-            if not first_line.isdigit() or int(first_line) <= 0:
+            first_line = document.readline()
+            if int(first_line) <= 0:
                 print("ERROR : The number of middle layers is equal to",
                     first_line, ".")
                 print("It has to be a strictly positive integer.")
@@ -196,12 +216,15 @@ class ArgsManager:
         if arg == "Sigmoid":
             self.squishing_funcs = [(Sigmoid, InvSigmoid, DerSigmoid)] \
                 * (nb_layer-1)
+            self.squishing_funcs_str = "Sigmoid"
         elif arg == "ReEU":
             self.squishing_funcs = [(ReEU, InvReEU, DerReEU)] * (nb_layer-1)
+            self.squishing_funcs_str = "ReEU"
         elif arg == "ReLU":
             self.squishing_funcs = [(ReLU, InvReLU, DerReLU)] * (nb_layer-2)
             # BEWARE : end with a function that squishes the number in [0, 1]
             self.squishing_funcs.append((ReEU, InvReEU, DerReEU))
+            self.squishing_funcs_str = "ReLU"
         else:
             print("The given squishing function", arg, "doesn't correspond to"
                 " any possible function :", POSSIBLE_SQUISHING_FUNC)
@@ -241,6 +264,7 @@ class ArgsManager:
             print("The given squishing function", arg, "doesn't correspond to"
                 " any possible function :", POSSIBLE_GRAD_DESC_FACT_FUNC)
             sys.exit(1)
+        self.grad_desc_factor_str = arg
 
 
 
@@ -315,7 +339,7 @@ class ArgsManager:
             print("ERROR : The path", arg, "already exists. You may choose"
                 " another path to initialize a new Neural Network directory.")
             print("If you only want to save the current Neural Network after"
-                " training, you may want to replace -init=S", arg, " with -S.")
+                " training, you may want to replace -init=S", arg, "with -S.")
             sys.exit(1)
         else:
             # first time so we have to edit it so initialize everything
@@ -325,8 +349,17 @@ class ArgsManager:
             os.system("cp " + main_dir + " " + arg)
             # add the nw .txt file in the directory
             os.system("mv " + arg + "/*.txt " + arg + "/nw.txt")
-            # add the info .csv file in the directory
-            os.system("touch " + arg + "/info.csv")
+            # add the info .csv file in the directory and initialize it
+            csvfile = arg + "/info.csv"
+            os.system("touch " + csvfile)
+            title = ["Learning Size", "Error Rate %", "Average Cost",
+                "Testing Size", "Gradient Descent", "Batches Size", "Repeat",
+                "Squishing Func", "Date"]
+            document = open(csvfile, "w")
+            writer = csv.writer(document, delimiter='|', lineterminator='\n')
+            writer.writerow(title)
+            document.close()
+            # inform the user that the directory was successfully created
             print("\nThe directory", arg, "has just been created.\n")
             # as we have a save directory it will save the data in the docs
             self.dir_save = arg
@@ -354,7 +387,7 @@ class ArgsManager:
             Mostly useful to debug and see whether or not the argument argument
             well identify.
         """
-        print("The form of the Neural Network is ", self.neural_network)
+        print("\nThe form of the Neural Network is ", self.neural_network)
         print("The size of a batch is", self.batches_size)
         print("The squishing functions for the first layer is",
             self.squishing_funcs[0])
@@ -366,4 +399,5 @@ class ArgsManager:
             self.grad_desc_factor[1])
         print("The number of repetition in the training phase is", self.repeat)
         print("The size of the training data set used is", self.learning_size)
-        print("The size of the testing data set used is", self.testing_size)
+        print("The size of the testing data set used is",self.testing_size)
+        print("\n")

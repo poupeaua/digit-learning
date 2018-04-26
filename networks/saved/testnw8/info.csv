@@ -1,0 +1,2 @@
+Learning Size|Error Rate %|Average Cost|Testing Size|Gradient Descent|Batches Size|Repeat|Squishing Func|Date
+5            |0.8991      |1.1064320808|10000       |Constant4       |1           |0     |Sigmoid       |2018-04-26 20:42

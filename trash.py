@@ -4,6 +4,7 @@
     File used to test a lot of stuff
 """
 
+import datetime
 import numpy as np
 import csv
 import random
@@ -137,13 +138,46 @@ def main():
     string = string[:-1]
     assert(string == "alle")
 
-    res = ["1", "2", "3"]
+    res = ["5000", "5000"]
     csvfile = "test.csv"
-    document = open(csvfile, "r+")
-    writer = csv.writer(document, delimiter='|', lineterminator='\n')
+    document = open(csvfile, "r")
     reader = csv.reader(document, delimiter='|', lineterminator='\n')
+    memory = []
     for row in reader:
+        memory.append(row)
         print(row)
+    document.close()
+
+    document = open(csvfile, "w")
+    writer = csv.writer(document, delimiter='|', lineterminator='\n')
+    writer.writerow(memory[0])
+    writer.writerow(res)
+    for index, element in enumerate(memory[1:]):
+        writer.writerow(element)
+    document.close()
+
+    string  = "123456"
+    print(string[:15])
+
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M")
+    # print("Current date and time using str method of datetime object:")
+    # print(str(now))
+    #
+    # print("Current date and time using instance attributes:")
+    # print("Current year: %d" % now.year)
+    # print("Current month: %d" % now.month)
+    # print("Current day: %d" % now.day)
+    # print("Current hour: %d" % now.hour)
+    # print("Current minute: %d" % now.minute)
+    # print("Current second: %d" % now.second)
+    # print("Current microsecond: %d" % now.microsecond)
+    #
+    # print("Current date and time using strftime:")
+    # print(now.strftime("%Y-%m-%d %H:%M"))
+    #
+    # print("Current date and time using isoformat:")
+    # print(now.isoformat())
 
     # test a progress bar
     # for i in progressbar(range(15), "Computing: ", 40):

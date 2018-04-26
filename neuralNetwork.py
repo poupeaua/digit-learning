@@ -5,11 +5,10 @@
     as an object.
 """
 
-import sys
+import sys, csv, datetime, random
 import numpy as np
 from squishingFunc import *
 from externalFunc import *
-import random
 # from progressbar import *
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
@@ -74,6 +73,7 @@ class NeuralNetwork:
                 data = np.load(dir_load+"/"+str(index)+".npz")
                 self.weights[index] = data["w"]
                 self.biases[index] = data["b"]
+
 
 
     def initializeEmptyDParamArrays(self):
@@ -205,11 +205,7 @@ class NeuralNetwork:
         training_input = in_out_layers[0]
         values_layers, z_values = self.generateAllLayers(training_input)
         training_output = values_layers[self.nb_layer-1]
-
         perfect_output = in_out_layers[1]
-
-        # cost function = sum (a_j^N - y)^2 we do not really need that
-        # cost = sum(CostFunction(training_output, perfect_output))
 
         # (nb_layer - 1) matrix and biases vectors composed the neural network
         dweights = [None]*(self.nb_layer+1)
@@ -227,14 +223,13 @@ class NeuralNetwork:
             dweights[index], dbiases[index], der_cost_to_a = \
                 self.derivativeCostToParam(index, a, der_func_z, der_cost_to_a)
 
-
         return (dweights, dbiases)
 
 
 
     def generateOuputLayer(self, input_layer):
         """
-            Method used to test the neural network model by giving it a array
+            Method used to test the neural network model by giving it an array
             that contains all the pixels from an handwriting image. Use the same
             principle as generateAllLayers method.
 
@@ -253,13 +248,11 @@ class NeuralNetwork:
         """
         new_array = input_layer
         for index in range(0, self.nb_layer-1):
-            # print(len(new_array))
             z = self.weights[index].dot(new_array) + self.biases[index]
             # extract the good squishing function for this layer
             # [0] means the function not inverse or derivative one
             Function = self.squishing_funcs[index][0]
             new_array = Function(z)
-        # print(len(new_array))
         return new_array
 
 
@@ -299,7 +292,6 @@ class NeuralNetwork:
         values_layers = [new_array]
         z_values = []
         for index in range(0, self.nb_layer-1):
-            # print(len(new_array))
             z = self.weights[index].dot(new_array) + self.biases[index]
             # extract the good squishing function for this layer
             # [0] means the function not inverse or derivative one
@@ -307,7 +299,6 @@ class NeuralNetwork:
             new_array = Function(z)
             values_layers.append(new_array)
             z_values.append(z)
-        # print(len(new_array))
         return (values_layers, z_values)
 
 
@@ -336,13 +327,11 @@ class NeuralNetwork:
         new_array = output_layer
         # iteration from nb_layer-2 => 0
         for index in range(self.nb_layer-2, -1, -1):
-            # print(len(new_array))
             invA = np.linalg.pinv(self.weights[index])
             # extract the good squishing function for this layer
             # [1] means the inverse function not inormal or derivative one
             InvFunction = self.squishing_funcs[index][1]
             new_array = invA.dot(InvFunction(new_array)-self.biases[index])
-        # print(len(new_array))
         return new_array
 
 
@@ -362,10 +351,6 @@ class NeuralNetwork:
             np.savez(dir_save+"/"+str(index), w=self.weights[index],
                     b=self.biases[index])
 
-        # add information in the information file
-        info_file = dir_save + "/info" + dir_save.split("/")[-1] + ".csv"
-        # document = open(info_file, "w")
-
 
 
     def test(self, testing_data):
@@ -373,18 +358,19 @@ class NeuralNetwork:
             Method used to test the neural network after its training.
         """
         nb_correct = 0
+        total_cost = 0
         nb_test = len(testing_data)
-
 
         for element in progressbar(testing_data,
                         "Computing test process  : ",40):
             input_layer = element[0]
             perfect_output = element[1]
             generated_output = self.generateOuputLayer(input_layer)
-            # not really necessary just for information
+            # for information in the csv file
             cost_array = CostFunction(generated_output, perfect_output)
             cost = sum(cost_array)
-            # print(cost)
+            total_cost += cost
+
             index_max_value = np.argmax(generated_output)
             expected_answer = np.argmax(perfect_output)
 
@@ -396,14 +382,55 @@ class NeuralNetwork:
             if index_max_value == expected_answer:
                 nb_correct += 1
 
-        print("Generated ouput", generated_output)
-        print("Number =", index_max_value)
-        print("Perfect output", perfect_output)
-        print("Number =", expected_answer)
+        # print("Generated ouput", generated_output)
+        # print("Number =", index_max_value)
+        # print("Perfect output", perfect_output)
+        # print("Number =", expected_answer)
 
-        return (nb_test-nb_correct)/nb_test
+        error_rate = (nb_test-nb_correct)/nb_test
+        average_cost = total_cost/nb_test
+
+        return (error_rate, average_cost)
 
 
-    def display(self):
-        for index in range(0, nb_layer-1):
-            self.weights[index]
+    def inform(self, args, error_rate, average_cost):
+        """
+            Method to load information in the CSV file in the correspondant
+            directory.
+        """
+        # get the csv file
+        dir_save = args.dir_save
+        csvfile = dir_save + "/info.csv"
+
+        # read and save all the rows in the memory list
+        document = open(csvfile, "r")
+        reader = csv.reader(document, delimiter='|', lineterminator='\n')
+        memory = []
+        for row in reader:
+            memory.append(row)
+        document.close()
+
+        # Initialize the list to add in the csv file
+        now = datetime.datetime.now()
+        date = now.strftime("%Y-%m-%d %H:%M")
+        to_add = [str(args.learning_size), str(error_rate), str(average_cost),
+            str(args.testing_size), str(args.grad_desc_factor_str),
+            str(args.batches_size), str(args.repeat),
+            str(args.squishing_funcs_str)]
+        title = memory[0]
+        length_title = len(title)
+        new_row = []
+        for index, element in enumerate(to_add):
+            info = element[:len(title[index])] + \
+                " " * (len(title[index]) - len(element))
+            new_row.append(info)
+        new_row.append(str(date))
+
+        # add the new row at the second from the top
+        document = open(csvfile, "w")
+        writer = csv.writer(document, delimiter='|', lineterminator='\n')
+        writer.writerow(memory[0])
+        writer.writerow(new_row)
+        for index, element in enumerate(memory[1:]):
+            writer.writerow(element)
+        document.close()
