@@ -113,7 +113,12 @@ class NeuralNetwork:
             # in order to get a deeper and a more efficent learning
             for nb_repetition in range(0, repeat+1):
 
-                (dw,db) = self.initializeEmptyDParamArrays()
+                if batch_size >= 2:
+                    (dw,db) = self.initializeEmptyDParamArrays()
+                # apply the gradient descent factor to all the weights
+                # and biases gradients
+                # morevover, divide by the batch_size to normalize the grad
+                final_factor = 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
 
                 # iteration on the size of a batch
                 for index in range(i*batch_size, (i+1)*batch_size):
@@ -132,22 +137,10 @@ class NeuralNetwork:
                             db[index2] += db2[index2]
 
                 for index in range(0, self.nb_layer-1):
-
-                    # apply the gradient descent factor to all the weights
-                    # and biases gradients
-                    # morevover, divide by the batch_size to normalize the grad
-                    dw[index] *= 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
-                    db[index] *= 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
-
-                    # OVERHERE
-                    # print("Sum dw = ", np.sum(dw[index]))
-                    # print("Sum db = ", np.sum(db[index]))
-
-                    # print(dw[index])
                     # finally update the weights and the biases in the neural
                     # network
-                    self.weights[index] += dw[index]
-                    self.biases[index] += db[index]
+                    self.weights[index] += dw[index]*final_factor
+                    self.biases[index] += db[index]*final_factor
 
 
 
@@ -158,13 +151,15 @@ class NeuralNetwork:
 
             Complexity : (column+1) * row
         """
-        row = self.len_layers[index+1]
+        # row = self.len_layers[index+1]
         column = self.len_layers[index]
 
-        dweight_matrix = np.zeros(shape=(row, column))
-        dbiases_array = np.zeros(row)
+        # dweight_matrix = np.zeros(shape=(row, column))
+        # dbiases_array = np.zeros(row)
         da_array = np.zeros(column)
 
+        # VERSION 1 stupid for the cache easier to understand for the
+        #  construction of da_array
         # for i in range(0, row - 1):
         #     dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
         #
@@ -173,11 +168,20 @@ class NeuralNetwork:
         #         da_array[j] += self.weights[index][i][j] * dbiases_array[i]
         #         dweight_matrix[i][j] = a[j] * dbiases_array[i]
 
-        for i in range(0, row - 1):
-            dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
-            for j in range(0, column - 1):
-                da_array[j] += self.weights[index][i][j] * dbiases_array[i]
-                dweight_matrix[i][j] = a[j] * dbiases_array[i]
+        # VERSION 2
+        # for i in range(0, row - 1):
+        #     dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
+        #     for j in range(0, column - 1):
+        #         da_array[j] += self.weights[index][i][j] * dbiases_array[i]
+        #         dweight_matrix[i][j] = a[j] * dbiases_array[i]
+
+        # VERSION 3
+        dbiases_array = np.multiply(der_func_z, der_cost_to_a)
+        dweight_matrix = np.outer(dbiases_array, a)
+        for j in range(0, column - 1):
+                da_array[j] = sum(np.multiply(self.weights[index][:,j], \
+                    dbiases_array))
+
 
         # return negative of the matrix and array because we look for the
         # negative gradient so we have to multiply by -1
