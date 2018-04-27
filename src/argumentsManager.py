@@ -9,8 +9,8 @@
 
 import sys, os, csv
 import numpy as np
-from externalFunc import *
-from squishingFunc import *
+from src.externalFunc import *
+from src.squishingFunc import *
 
 # unchanging values
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels

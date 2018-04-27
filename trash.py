@@ -6,12 +6,9 @@
 
 import datetime
 import numpy as np
-import csv
-import random
-import sys
-import time
-from squishingFunc import *
-from externalFunc import progressbar
+import csv, random, sys, time
+from src.squishingFunc import *
+from src.externalFunc import progressbar
 
 def testFunc(func, param):
     """

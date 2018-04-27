@@ -9,7 +9,7 @@
 from struct import unpack
 from PIL import Image
 import numpy as np
-from externalFunc import progressbar
+from src.externalFunc import progressbar
 # from progressbar import *
 
 

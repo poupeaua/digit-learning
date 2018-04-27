@@ -7,8 +7,8 @@
 
 import sys, csv, datetime, random
 import numpy as np
-from squishingFunc import *
-from externalFunc import *
+from src.squishingFunc import *
+from src.externalFunc import *
 # from progressbar import *
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
@@ -165,12 +165,17 @@ class NeuralNetwork:
         dbiases_array = np.zeros(row)
         da_array = np.zeros(column)
 
+        # for i in range(0, row - 1):
+        #     dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
+        #
+        # for j in range(0, column - 1):
+        #     for i in range(0, row - 1):
+        #         da_array[j] += self.weights[index][i][j] * dbiases_array[i]
+        #         dweight_matrix[i][j] = a[j] * dbiases_array[i]
+
         for i in range(0, row - 1):
             dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
-
-        for j in range(0, column - 1):
-            da_array[j] = 0
-            for i in range(0, row - 1):
+            for j in range(0, column - 1):
                 da_array[j] += self.weights[index][i][j] * dbiases_array[i]
                 dweight_matrix[i][j] = a[j] * dbiases_array[i]
 
