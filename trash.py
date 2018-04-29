@@ -142,6 +142,13 @@ def main():
     now = datetime.datetime.now()
     date = now.strftime("%Y-%m-%d %H:%M")
 
+    # test dot NUMPY
+    matrix = np.ones(shape=(3, 3))
+    matrix[1, 1] += 1
+    matrix[2, 2] += 2
+    array = np.array([3, 4, 5])
+    # print(np.dot(array, matrix))
+
     print("OK. No bug were found in the trash.py file.")
 
 

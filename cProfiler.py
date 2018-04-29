@@ -18,7 +18,7 @@ def main():
 
     output_file = sys.argv[1]
     # no -S because this is just a test we don't want to save the result
-    cmd = "main.py networks/saved/testnw3 -ls 150 -ts 100 -gdf Constant0.5"
+    cmd = "main.py networks/saved/testnw3 -ls 500 -ts 500 -bs 100 -gdf Constant0.5"
 
     print("Compiling the command :", cmd, "\n")
 

@@ -1,1 +1,8 @@
 Learning Size|Error Rate %|Average Cost|Testing Size|Gradient Descent|Batches Size|Repeat|Squishing Func|Date
+50000        |0.07        |0.1080698962|10000       |Constant1       |100         |0     |Sigmoid       |2018-04-29 21:36
+50000        |0.0962      |0.1549622449|10000       |Constant5       |10          |0     |Sigmoid       |2018-04-29 21:24
+50000        |0.1027      |0.1621032673|10000       |Constant5       |10          |0     |Sigmoid       |2018-04-29 21:08
+25000        |0.1321      |0.2055311707|10000       |Constant5       |10          |0     |Sigmoid       |2018-04-29 20:53
+25000        |0.1429      |0.2299604323|10000       |Constant5       |10          |0     |Sigmoid       |2018-04-29 20:42
+25000        |0.2658      |0.3782041721|10000       |Constant5       |10          |0     |Sigmoid       |2018-04-29 20:35
+25000        |0.3849      |0.5135587576|10000       |Constant5       |1           |0     |Sigmoid       |2018-04-29 20:19

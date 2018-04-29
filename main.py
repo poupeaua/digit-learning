@@ -41,7 +41,7 @@ def main():
                 args.dir_load)
 
     # train the network
-    network.train(training_data, args.batches_size, args.grad_desc_factor,
+    network.trainNEO(training_data, args.batches_size, args.grad_desc_factor,
                    args.repeat)
 
     # save the network after training (if args.save != False)

@@ -66,6 +66,12 @@ class ArgsManager:
                     * (nb_layer-1)
             self.squishing_funcs_str = "Sigmoid"
 
+        # after analysing say if the batch size is correct
+        if self.learning_size % self.batches_size != 0:
+            print("ERROR : The learning size has to be divisible by the the"
+                " batch size.")
+            sys.exit(1)
+
 
 
     def analyseArgs(self, list_args):

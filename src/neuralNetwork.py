@@ -92,6 +92,107 @@ class NeuralNetwork:
 
 
 
+
+# ------------------------------- NEO TRAIN METHOD -----------------------------
+
+
+
+
+    def trainNEO(self, training_data, batch_size, gradientDescentFactor, repeat):
+        """
+            Method used to train the neural network.
+
+            If batch_size == 1 => individual training
+            Else               => mini_batching training
+
+            Repeat is the number of repetition of learning for each batch.
+        """
+        size_training_data = len(training_data)
+        gdf_func = gradientDescentFactor[0]
+        gdf_param = gradientDescentFactor[1]
+
+        # quicker training => descent one by one digit
+        if batch_size == 1:
+            for i in progressbar(range(0, size_training_data),
+                                "Computing train process : ",40):
+                # we can choose how many time we want to repeat the operation
+                # in order to get a deeper and a more efficent learning
+                for nb_repetition in range(0, repeat+1):
+                    # apply the gradient descent factor to dweights and dbiases
+                    gdfactor = 0.1*gdf_func(nb_repetition, gdf_param)
+                    # extract the image to use for the training and its
+                    # expected output
+                    in_out_layers = training_data[i]
+                    self.calculateNegGradientNEO(in_out_layers, gdfactor)
+        # longer training => descent to the average
+        else:
+            for i in progressbar(range(0, round(size_training_data/batch_size)),
+                                "Computing train process : ",40):
+                for nb_repetition in range(0, repeat+1):
+                    gdfactor = 0.1*gdf_func(nb_repetition, gdf_param)/batch_size
+                    (dw,db) = self.initializeEmptyDParamArrays()
+                    # iteration on the size of a batch
+                    for index_batch in range(i*batch_size, (i+1)*batch_size):
+                        in_out_layers = training_data[index_batch]
+                        (dw2, db2) = self.calculateNegGradient(in_out_layers)
+                        # add the gradient due to dweights and dbiases
+                        for index2 in range(0, self.nb_layer-1):
+                            dw[index2] += dw2[index2]
+                            db[index2] += db2[index2]
+
+                    for index in range(0, self.nb_layer-1):
+                        # finally update the weights and the biases
+                        self.weights[index] += dw[index]*gdfactor
+                        self.biases[index] += db[index]*gdfactor
+
+
+
+    def calculateNegGradientNEO(self, in_out_layers, gdfactor):
+        """
+            Method used to train the neural network.
+
+            Inputs :
+
+            -> inOutLayers : a TUPLE that contains two numpy arrays
+                          the first numpy array has a length of 28x28 = 784
+                          each element is in [0, 1] 0 means a dark pixel
+                          and 1 means a white pixel
+                          the second numpy array has length of 10.
+                          This is the best output that could be obtain when
+                          we test the neural network with the according image
+        """
+        training_input = in_out_layers[0]
+        values_layers, z_values = self.generateAllLayers(training_input)
+        training_output = values_layers[self.nb_layer-1]
+        perfect_output = in_out_layers[1]
+
+        # initialization of der_cost_to_a needed for the loop
+        der_cost_to_a = DerCostFunction(training_output, perfect_output)
+
+        for index in range(self.nb_layer-2, -1, -1):
+            # extract the good squishing function for this layer
+            # [2] means the derivative function not normal or inverse one
+            DerFunction = self.squishing_funcs[index][2]
+            der_func_z = DerFunction(z_values[index])
+            a = values_layers[index]
+
+            # derivative cost to param weights, biases and a
+            dbiases = np.multiply(der_func_z, der_cost_to_a)
+            dweights = -np.outer(dbiases, a) # * -1 to get NEG grad
+            der_cost_to_a = np.dot(dbiases, self.weights[index])
+            dbiases *= -1 # * -1 after to get NEG grad
+
+            # update weights and biases
+            self.weights[index] += dweights*gdfactor
+            self.biases[index] += dbiases*gdfactor
+
+
+
+# ------------------------------- OLD TRAIN METHOD -----------------------------
+
+
+
+
     def train(self, training_data, batch_size, gradientDescentFactor, repeat):
         """
             Method used to train the neural network.
@@ -152,14 +253,15 @@ class NeuralNetwork:
             Complexity : (column+1) * row
         """
         # row = self.len_layers[index+1]
-        column = self.len_layers[index]
+        # column = self.len_layers[index]
 
         # dweight_matrix = np.zeros(shape=(row, column))
         # dbiases_array = np.zeros(row)
-        da_array = np.zeros(column)
+        # da_array = np.zeros(column)
 
         # VERSION 1 stupid for the cache easier to understand for the
-        #  construction of da_array
+        #  construction of da_array (keep that version to follow the
+        # elaboration of the more optimized versions
         # for i in range(0, row - 1):
         #     dbiases_array[i] = der_func_z[i] * der_cost_to_a[i]
         #
@@ -175,13 +277,18 @@ class NeuralNetwork:
         #         da_array[j] += self.weights[index][i][j] * dbiases_array[i]
         #         dweight_matrix[i][j] = a[j] * dbiases_array[i]
 
-        # VERSION 3
+        # VERSION 3 exploit more the numpy aspect + one les for in range
+        # dbiases_array = np.multiply(der_func_z, der_cost_to_a)
+        # dweight_matrix = np.outer(dbiases_array, a)
+        # for j in range(0, column - 1):
+        #         da_array[j] = sum(np.multiply(self.weights[index][:,j], \
+        #             dbiases_array))
+
+        # VERSION 4 add more numpy utilities + remove the last for in range +
+        # no init values (column, da_array)
         dbiases_array = np.multiply(der_func_z, der_cost_to_a)
         dweight_matrix = np.outer(dbiases_array, a)
-        for j in range(0, column - 1):
-                da_array[j] = sum(np.multiply(self.weights[index][:,j], \
-                    dbiases_array))
-
+        da_array = np.dot(dbiases_array, self.weights[index])
 
         # return negative of the matrix and array because we look for the
         # negative gradient so we have to multiply by -1
@@ -229,10 +336,16 @@ class NeuralNetwork:
             der_func_z = DerFunction(z_values[index])
             a = values_layers[index]
             # derivative cost to param weights, biases and a
-            dweights[index], dbiases[index], der_cost_to_a = \
-                self.derivativeCostToParam(index, a, der_func_z, der_cost_to_a)
+            dbiases[index] = np.multiply(der_func_z, der_cost_to_a)
+            dweights[index] = -np.outer(dbiases[index], a) # *-1 NEG grad
+            der_cost_to_a = np.dot(dbiases[index], self.weights[index])
+            dbiases[index] *= -1 # don't forget to multiply by minus -1 NEG grad
 
         return (dweights, dbiases)
+
+
+
+# -----------------------------------------------------------------------------
 
 
 
