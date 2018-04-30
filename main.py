@@ -10,8 +10,9 @@
         - linter-pylint by AtomLinter
         - minimap by atom-minimap
 
-    Pratical stuff:
-        - find . -name "*csv"
+    Pratical stuff: (using atom editor)
+        - atom $(find . -name "*csv")
+        - atom $(find ./profile -name "*.txt")
 
     Documentation about docstring convention in Python :
     http://sametmax.com/les-docstrings/
@@ -33,7 +34,7 @@ def main():
     if args.to_display:
         args.display()
 
-    # initilization of the training_dataset
+    # initilization of the training data set
     training_data = MNISTexample(0, args.learning_size, bTrain=True)
 
     # creation of the network
@@ -53,6 +54,7 @@ def main():
     error_rate, average_cost = network.test(testing_data)
     print("The error rate is", error_rate*100, "%.")
 
+    # write all the information on the training in the corrspondant CSV file
     if args.dir_save != None and args.to_info:
         network.inform(args, error_rate, average_cost)
 

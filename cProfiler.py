@@ -3,6 +3,9 @@
 """
     Intepreter to use cProfile and analyse the results.
     Use to optimize code by analazing the execution time of each functions.
+
+    Practical use to open all the information :
+        - atom $(find ./profile -name "*.txt")
 """
 
 import sys, os, pstats
