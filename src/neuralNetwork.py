@@ -9,7 +9,6 @@ import sys, csv, datetime, random
 import numpy as np
 from src.squishingFunc import *
 from src.externalFunc import *
-# from progressbar import *
 
 SIZE_INPUT = 784 # 28 * 28 = 784 pixels
 SIZE_OUTPUT = 10 # number of numbers between 0 and 9

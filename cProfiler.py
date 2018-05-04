@@ -2,13 +2,16 @@
 
 """
     Intepreter to use cProfile and analyse the results.
-    Use to optimize code by analazing the execution time of each functions.
+    Use to optimize code by analazing the execution time of each function.
 
     Practical use to open all the information :
         - atom $(find ./profile -name "*.txt")
 """
 
-import sys, os, pstats
+import sys
+import os
+# import pstats used to print a table that gives the time passed in each func
+import pstats
 
 def main():
     """

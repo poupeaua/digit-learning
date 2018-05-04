@@ -19,7 +19,8 @@
 """
 
 import numpy as np
-import sys, time
+import sys
+import time
 from src.mnistHandwriting import *
 from src.neuralNetwork import *
 from src.argumentsManager import *
