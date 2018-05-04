@@ -7,10 +7,11 @@ order to identify digits made by hand.
   In the directory networks/model: you can create a network.
   You have to name it {network_name}.txt.
   The first line is the number of layer in the neural network (except
-  the first one and the last one that you cannot choose).
+  the first one and the last one).
   For each layer (the number in the first line) return to a new line and
-  write a number. It indicates the number of neurons in this layer.
-  N.B: you are not obliged to create a new .txt file and use existing ones.
+  write a number. This indicates the number of neurons in this layer.
+  N.B: you are not obliged to create a new .txt file, you can simply
+  use existing ones.
 
 2) Initialize your neural network:
   Simply run the following command in the main directory:
@@ -23,7 +24,7 @@ order to identify digits made by hand.
 
 4) Follow the evolution of your training:
   Just open the file networks/saved/{dir_name}/info.csv.
-  It contains all the information about the evolution of your neural network
+  It contains all the information about the evolution of your neural network.
 
 5) Enjoy !
   In case of emergency do not hesitate to run the command ./main.py
@@ -34,4 +35,4 @@ order to identify digits made by hand.
 
 # Documentation
 For further information and to get a better understanding of the code I
-recommend you to read either doc/html/index.html or doc/latex/refman.pdf.s
+recommend you to read either doc/html/index.html or doc/latex/refman.pdf.
