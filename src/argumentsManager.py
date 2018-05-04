@@ -19,12 +19,14 @@ SIZE_TRAINING = 60000
 SIZE_TESTING = 10000
 # you can choose the value for the following global constant
 REPETITION_LIMIT = 1000
-POSSIBLE_ARGS_WITHOUT_PARAM = ["-S", "-v", "-I"]
+POSSIBLE_ARGS_WITHOUT_PARAM = ["-S", "-v", "-NO-INFO"]
 POSSIBLE_ARGS_WITH_PARAM = ["-bs", "-sf", "-gdf", "-r", "-ls", "-ts", "-init=S"]
 ALL_POSSIBLE_ARGS = POSSIBLE_ARGS_WITH_PARAM + POSSIBLE_ARGS_WITHOUT_PARAM
 POSSIBLE_SQUISHING_FUNC = ["Sigmoid", "ReEU", "ReLU"]
 POSSIBLE_GRAD_DESC_FACT_FUNC = ["NegPower{anyPosFloat}",
     "Constant{anyPosFloat}"]
+HELP = ["help", "-help", "--help", "h", "-h", "--h", "HELP", "-HELP", "--HELP"
+        "H", "-H", "--H", "MORE", "-MORE", "--MORE", "more", "-more", "--more"]
 
 
 
@@ -79,6 +81,12 @@ class ArgsManager:
             Method used to analyse the inputs of the main function.
             Used to make sure that args are correct but also to assign them.
         """
+        # --------- required to check if the user is looking for help ---------
+        for arg in list_args:
+            if arg in HELP:
+                self.help()
+                sys.exit(1)
+
         # ex ./main.py network/network1.txt => len(sys.argv) == 2
         nb_arg = len(list_args)
 
@@ -378,12 +386,59 @@ class ArgsManager:
         """
         if not os.path.isdir(main_dir):
             print("ERROR : Since", main_dir, "is a not a directory,"
-                " you are not allowed to save any data in it")
-            print("You may want to create a directory using -init=S"
-                " dirname first.")
+                " you are not allowed to save any data in it.")
+            print("You may want to create firstly a directory using -init=S"
+                " networks/saved/{dirname}.")
             sys.exit(1)
         else:
             self.dir_save = main_dir
+
+
+
+
+    def help(self):
+        """
+            Method to display the help for the user.
+            It shows all the arguments possible to the user and explains
+            how to use them.
+        """
+        print("\nHELP:\n")
+        print("Arguments with parameters:\n")
+        print(" -ls              Learning Size (or training size) is an integer"
+                                " between 1 and 60000. It corresponds to the"
+                                " number of images used to train the model."
+                                " By default at 60000.")
+        print(" -ts              Testing Size is an integer between 1 and"
+                                " 10000. It corresponds to the number of images"
+                                " used to test the model. By default at 10000.")
+        print(" -bs              Batch Size is an integer between 1 and the"
+                                " chosen learning size. Thus, the network is"
+                                " updated by considering the average negative"
+                                " gradient value of each batch instead of the"
+                                " value of each image.")
+        print(" -r               Repeat is an integer between 0 and +inf."
+                                " Repeat the operation of updating the neural"
+                                " network for each batch. Very useful in order"
+                                " to perform huge training sessions.")
+        print(" -gdf            Gradient Descent Function & Factor. It is"
+                                " allowed to put ",POSSIBLE_GRAD_DESC_FACT_FUNC)
+        print(" -sf             Squishing Function. It is allowed"
+                                " to put ", POSSIBLE_SQUISHING_FUNC)
+        print(" -init=S         Initialize Save mode. A directory is expected."
+                                " Most common use : -init=S networks/saved/{dir_name}")
+        print("")
+        print("Arguments without parameters:\n")
+        print(" -S              Save mode. The training will be saved."
+                                " Each component of the network will be saved"
+                                " in the requested directory in the .npz files.")
+        print(" -v              Verbose. Display information about the current"
+                                " training. Also available -verbose.")
+        print(" -NO-INFO        Deactivate the automatic saving information"
+                                " mode. All the information about the current"
+                                " training will not be saved in the info.csv"
+                                " file. It is strongly recommended to NOT use"
+                                " that argument.")
+        print("")
 
 
 

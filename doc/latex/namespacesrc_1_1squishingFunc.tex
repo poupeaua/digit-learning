@@ -1,0 +1,147 @@
+\hypertarget{namespacesrc_1_1squishingFunc}{}\section{src.\+squishing\+Func Namespace Reference}
+\label{namespacesrc_1_1squishingFunc}\index{src.\+squishing\+Func@{src.\+squishing\+Func}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_a9f2bf373eef874c75277aba5961e88b4}{Sigmoid} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_aa403a7ce6d4fa6e36af716c717b18612}{Inv\+Sigmoid} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_ab9731c9ffb2745993a5c10905e93504e}{Der\+Sigmoid} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_a2f14449387ddf7d1164bdd9250b905a6}{Re\+LU} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_a58104ae8c45b4af7779b910fc6d855f5}{Inv\+Re\+LU} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_a125d649d9dc23188a759ce2b56dd5e0a}{Der\+Re\+LU} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_ac1e0f619312113d67c260469ea4a91eb}{Re\+EU} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_ac2e00a56e7068f57aa4b452ede26e87d}{Inv\+Re\+EU} (x)
+\item 
+def \hyperlink{namespacesrc_1_1squishingFunc_a3159cc371c0909a2bc6d3e4532484155}{Der\+Re\+EU} (x)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}    File used to store different function used to train the neural
+    network.
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\index{src\+::squishing\+Func@{src\+::squishing\+Func}!Der\+Re\+EU@{Der\+Re\+EU}}
+\index{Der\+Re\+EU@{Der\+Re\+EU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Der\+Re\+E\+U(x)}{DerReEU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Der\+Re\+EU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_a3159cc371c0909a2bc6d3e4532484155}{}\label{namespacesrc_1_1squishingFunc_a3159cc371c0909a2bc6d3e4532484155}
+\begin{DoxyVerb}    Derivative of Rectified Exponential Unit function.
+    Function that returns a value between ]0, 1] if the entry x
+    is in [0, +inf] otherwise it returns 0.
+    In the case of x = 0, return 1/2. It is not mathematically true, however
+    in pratical in works well because it is the value that makes sense.
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Der\+Re\+LU@{Der\+Re\+LU}}
+\index{Der\+Re\+LU@{Der\+Re\+LU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Der\+Re\+L\+U(x)}{DerReLU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Der\+Re\+LU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_a125d649d9dc23188a759ce2b56dd5e0a}{}\label{namespacesrc_1_1squishingFunc_a125d649d9dc23188a759ce2b56dd5e0a}
+\begin{DoxyVerb}    Derivative of Rectified Linear Unit function.
+    If x > 0, return 1, if x < 0 return 0.
+    In the case of x = 0, return 1/2. It is not mathematically true, however
+    in pratical in works well because it is the value that makes sense.
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Der\+Sigmoid@{Der\+Sigmoid}}
+\index{Der\+Sigmoid@{Der\+Sigmoid}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Der\+Sigmoid(x)}{DerSigmoid(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Der\+Sigmoid (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_ab9731c9ffb2745993a5c10905e93504e}{}\label{namespacesrc_1_1squishingFunc_ab9731c9ffb2745993a5c10905e93504e}
+\begin{DoxyVerb}    Derivative of Sigmoid function.
+    x in [-inf, +inf] and return a value in ]0, 1[.
+    Sigmoid'(x) = (1/2)(1/(cosh(x)+1))
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Inv\+Re\+EU@{Inv\+Re\+EU}}
+\index{Inv\+Re\+EU@{Inv\+Re\+EU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Inv\+Re\+E\+U(x)}{InvReEU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Inv\+Re\+EU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_ac2e00a56e7068f57aa4b452ede26e87d}{}\label{namespacesrc_1_1squishingFunc_ac2e00a56e7068f57aa4b452ede26e87d}
+\begin{DoxyVerb}    Inverse Rectified Exponential Unit function.
+    Function that returns a value between ]0, +inf[ and we suppose
+    the entry x in ]0, 1[.
+    y =  1-exp(-x) <=> x = -ln(1-y)
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Inv\+Re\+LU@{Inv\+Re\+LU}}
+\index{Inv\+Re\+LU@{Inv\+Re\+LU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Inv\+Re\+L\+U(x)}{InvReLU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Inv\+Re\+LU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_a58104ae8c45b4af7779b910fc6d855f5}{}\label{namespacesrc_1_1squishingFunc_a58104ae8c45b4af7779b910fc6d855f5}
+\begin{DoxyVerb}    Inverse Rectified Linear Unit function.
+    Return a value in [0, +inf] if we suppose the entry x in
+    [0, +inf].
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Inv\+Sigmoid@{Inv\+Sigmoid}}
+\index{Inv\+Sigmoid@{Inv\+Sigmoid}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Inv\+Sigmoid(x)}{InvSigmoid(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Inv\+Sigmoid (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_aa403a7ce6d4fa6e36af716c717b18612}{}\label{namespacesrc_1_1squishingFunc_aa403a7ce6d4fa6e36af716c717b18612}
+\begin{DoxyVerb}    Inverse Sigmoid function.
+    x in ]0, 1[ and return a value in [-inf, +inf].
+    y = 1/(1 + np.exp(-x)) <=> x = ln(y) - ln(1)
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Re\+EU@{Re\+EU}}
+\index{Re\+EU@{Re\+EU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Re\+E\+U(x)}{ReEU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Re\+EU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_ac1e0f619312113d67c260469ea4a91eb}{}\label{namespacesrc_1_1squishingFunc_ac1e0f619312113d67c260469ea4a91eb}
+\begin{DoxyVerb}    Rectified Exponential Unit function.
+    Kind of a mix between sigmoid and ReLU.
+    Function that returns a value between [0, 1[ if the entry x
+    is in [0, +inf] otherwise it returns 0.
+    Used this method because it is faster than np.maximum(0, x).
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Re\+LU@{Re\+LU}}
+\index{Re\+LU@{Re\+LU}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Re\+L\+U(x)}{ReLU(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Re\+LU (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_a2f14449387ddf7d1164bdd9250b905a6}{}\label{namespacesrc_1_1squishingFunc_a2f14449387ddf7d1164bdd9250b905a6}
+\begin{DoxyVerb}    Rectified Linear Unit function.
+    The idea is that there is a real activation in neurals from
+    our brains. This function is inspired by biological researchs.
+    If there is no activation, here x < 0, we return 0. This means
+    that the neuron doesn't emit any output signal.
+    However if x >= 0, the neuron emit a signal that correspond to
+    the entry.
+
+    Beware : this function tends to work well, however neurons in
+    each layer except the first one are not values in ]0, 1[ but
+    in ]0, +inf[ when using this function.
+\end{DoxyVerb}
+ \index{src\+::squishing\+Func@{src\+::squishing\+Func}!Sigmoid@{Sigmoid}}
+\index{Sigmoid@{Sigmoid}!src\+::squishing\+Func@{src\+::squishing\+Func}}
+\subsubsection[{\texorpdfstring{Sigmoid(x)}{Sigmoid(x)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+squishing\+Func.\+Sigmoid (
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1squishingFunc_a9f2bf373eef874c75277aba5961e88b4}{}\label{namespacesrc_1_1squishingFunc_a9f2bf373eef874c75277aba5961e88b4}
+\begin{DoxyVerb}    Sigmoid function.
+    Oldschool way to train networks.
+    Base function used to train neural network but unefficient
+    x in [-inf, +inf] and return a value in ]0, 1[.
+\end{DoxyVerb}
+ 

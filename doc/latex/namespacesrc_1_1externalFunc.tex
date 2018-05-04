@@ -1,0 +1,111 @@
+\hypertarget{namespacesrc_1_1externalFunc}{}\section{src.\+external\+Func Namespace Reference}
+\label{namespacesrc_1_1externalFunc}\index{src.\+external\+Func@{src.\+external\+Func}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_ad109e658b6213de888cda3ab041d8f5e}{Neg\+Power} (n, value=1.\+3)
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_a43586749a015f0f4b1caedb8247205f6}{Constant} (n, value=1)
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_ad35d430146a5fc9c64b133eae37ec3fc}{Cost\+Function} (output\+\_\+layer, perfect\+\_\+output)
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_abb01a6305850dfeecf63a795efaa332b}{Der\+Cost\+Function} (output\+\_\+layer, perfect\+\_\+output)
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_aad7d46f08dec5e6eccfd0816d61d2aa6}{isfloat} (string)
+\item 
+def \hyperlink{namespacesrc_1_1externalFunc_a4d8a98ff52e782513517475ca6edc833}{progressbar} (it, prefix=\char`\"{}\char`\"{}, size=60)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}    File used to separate the code and therefore make it cleaner by
+    separating some functions in that file when that makes sense.
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\index{src\+::external\+Func@{src\+::external\+Func}!Constant@{Constant}}
+\index{Constant@{Constant}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{Constant(n, value=1)}{Constant(n, value=1)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+Constant (
+\begin{DoxyParamCaption}
+\item[{}]{n, }
+\item[{}]{value = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_a43586749a015f0f4b1caedb8247205f6}{}\label{namespacesrc_1_1externalFunc_a43586749a015f0f4b1caedb8247205f6}
+\begin{DoxyVerb}    Generate a constant gradient descent factor.
+\end{DoxyVerb}
+ \index{src\+::external\+Func@{src\+::external\+Func}!Cost\+Function@{Cost\+Function}}
+\index{Cost\+Function@{Cost\+Function}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{Cost\+Function(output\+\_\+layer, perfect\+\_\+output)}{CostFunction(output_layer, perfect_output)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+Cost\+Function (
+\begin{DoxyParamCaption}
+\item[{}]{output\+\_\+layer, }
+\item[{}]{perfect\+\_\+output}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_ad35d430146a5fc9c64b133eae37ec3fc}{}\label{namespacesrc_1_1externalFunc_ad35d430146a5fc9c64b133eae37ec3fc}
+\begin{DoxyVerb}    Generate the cost array. To calculate the cost, you just have to
+    compute sum(CostFunction(output_layer, perfect_output)).
+
+    Inputs :
+
+    -> output_layer, perfect_output : two NUMPY ARRAYS with the same size.
+
+    Output :
+
+    <-          : NUMPY ARRAY which size is equal to the size of the inputs
+\end{DoxyVerb}
+ \index{src\+::external\+Func@{src\+::external\+Func}!Der\+Cost\+Function@{Der\+Cost\+Function}}
+\index{Der\+Cost\+Function@{Der\+Cost\+Function}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{Der\+Cost\+Function(output\+\_\+layer, perfect\+\_\+output)}{DerCostFunction(output_layer, perfect_output)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+Der\+Cost\+Function (
+\begin{DoxyParamCaption}
+\item[{}]{output\+\_\+layer, }
+\item[{}]{perfect\+\_\+output}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_abb01a6305850dfeecf63a795efaa332b}{}\label{namespacesrc_1_1externalFunc_abb01a6305850dfeecf63a795efaa332b}
+\begin{DoxyVerb}    Generate an numpy array where each of its composant is the derivative of
+    the cost array.
+    Exact same inputs and output as the function above.
+\end{DoxyVerb}
+ \index{src\+::external\+Func@{src\+::external\+Func}!isfloat@{isfloat}}
+\index{isfloat@{isfloat}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{isfloat(string)}{isfloat(string)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+isfloat (
+\begin{DoxyParamCaption}
+\item[{}]{string}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_aad7d46f08dec5e6eccfd0816d61d2aa6}{}\label{namespacesrc_1_1externalFunc_aad7d46f08dec5e6eccfd0816d61d2aa6}
+\begin{DoxyVerb}    Function useful to test whether or not a string is a float or not.
+\end{DoxyVerb}
+ \index{src\+::external\+Func@{src\+::external\+Func}!Neg\+Power@{Neg\+Power}}
+\index{Neg\+Power@{Neg\+Power}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{Neg\+Power(n, value=1.\+3)}{NegPower(n, value=1.3)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+Neg\+Power (
+\begin{DoxyParamCaption}
+\item[{}]{n, }
+\item[{}]{value = {\ttfamily 1.3}}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_ad109e658b6213de888cda3ab041d8f5e}{}\label{namespacesrc_1_1externalFunc_ad109e658b6213de888cda3ab041d8f5e}
+\begin{DoxyVerb}    Generate a natural gradient descent factor.
+    The slope seems good for value = 1.3.
+
+    Inputs :
+
+    -> n        : INT in [0, +inf[
+
+    -> value    : FLOAT in ]0, +inf[
+
+    Output :
+
+    <-          : FLOAT in ]0, 1[. Return value^(-n).
+\end{DoxyVerb}
+ \index{src\+::external\+Func@{src\+::external\+Func}!progressbar@{progressbar}}
+\index{progressbar@{progressbar}!src\+::external\+Func@{src\+::external\+Func}}
+\subsubsection[{\texorpdfstring{progressbar(it, prefix="""", size=60)}{progressbar(it, prefix="", size=60)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+external\+Func.\+progressbar (
+\begin{DoxyParamCaption}
+\item[{}]{it, }
+\item[{}]{prefix = {\ttfamily \char`\"{}\char`\"{}}, }
+\item[{}]{size = {\ttfamily 60}}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacesrc_1_1externalFunc_a4d8a98ff52e782513517475ca6edc833}{}\label{namespacesrc_1_1externalFunc_a4d8a98ff52e782513517475ca6edc833}
+\begin{DoxyVerb}    Function used to have access to progress without having to use the
+    package progressbar2.
+    Example of use
+\end{DoxyVerb}
+ 

@@ -1,0 +1,338 @@
+\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork}{}\section{src.\+neural\+Network.\+Neural\+Network Class Reference}
+\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork}\index{src.\+neural\+Network.\+Neural\+Network@{src.\+neural\+Network.\+Neural\+Network}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a72b80835f72acc3c6bff018dd2f9f1a7}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, len\+\_\+layers, squishing\+\_\+funcs, dir\+\_\+load)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ad6349ea5f03d3ab38aa0ed4cd27a01b8}{initialize\+Weights\+Biases} (self, dir\+\_\+load)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a3877f22a5f71a46ecbac86894ea8d426}{initialize\+Empty\+D\+Param\+Arrays} (self)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aca6c479de85d60a5637164b7579bebc0}{train\+N\+EO} (self, training\+\_\+data, batch\+\_\+size, gradient\+Descent\+Factor, repeat)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ac5c9936546fa398f9c30c17651293d8c}{calculate\+Neg\+Gradient\+N\+EO} (self, in\+\_\+out\+\_\+layers, gdfactor)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a783b7b81a9427e302728b02ade980d18}{train} (self, training\+\_\+data, batch\+\_\+size, gradient\+Descent\+Factor, repeat)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8bbfff35ec6a3a467bf1e39a37babae8}{derivative\+Cost\+To\+Param} (self, index, a, der\+\_\+func\+\_\+z, der\+\_\+cost\+\_\+to\+\_\+a)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a06baba93e5a4486e008c739f4492b66f}{calculate\+Neg\+Gradient} (self, in\+\_\+out\+\_\+layers)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aa315683b512adf945bf1fd54b177dc40}{generate\+Ouput\+Layer} (self, input\+\_\+layer)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_adde0d575e9f40dd7740fcb712b293002}{generate\+All\+Layers} (self, input\+\_\+layer)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ab287315a1443d6cbf3c6b405a5035be8}{generate\+Input\+Layer} (self, output\+\_\+layer)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a30341b6e19d739fb71b1d0370b72b903}{save} (self, dir\+\_\+save)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8043e1545c08fb9a9215d83ba021bd32}{test} (self, testing\+\_\+data)
+\item 
+def \hyperlink{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a819389f2ec6231ffdccf186e3f32eb9d}{inform} (self, args, error\+\_\+rate, average\+\_\+cost)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries nb\+\_\+layer}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a0f8b52022c64b3ee2cea1d1606b65da4}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a0f8b52022c64b3ee2cea1d1606b65da4}
+
+\item 
+{\bfseries len\+\_\+layers}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8346128fedcd7a85f7b829ab91ae3a36}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8346128fedcd7a85f7b829ab91ae3a36}
+
+\item 
+{\bfseries weights}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aeb0760fbe24ae24b183921b6104de2c7}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aeb0760fbe24ae24b183921b6104de2c7}
+
+\item 
+{\bfseries biases}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a6d2938841ec5e36a2246c80ad0d63385}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a6d2938841ec5e36a2246c80ad0d63385}
+
+\item 
+{\bfseries squishing\+\_\+funcs}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aeefddd4ccdf67a01d745475e3b59c23f}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aeefddd4ccdf67a01d745475e3b59c23f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}    Class neural network.
+\end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+(self, len\+\_\+layers, squishing\+\_\+funcs, dir\+\_\+load)}{__init__(self, len_layers, squishing_funcs, dir_load)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+\_\+\+\_\+init\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{len\+\_\+layers, }
+\item[{}]{squishing\+\_\+funcs, }
+\item[{}]{dir\+\_\+load}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a72b80835f72acc3c6bff018dd2f9f1a7}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a72b80835f72acc3c6bff018dd2f9f1a7}
+\begin{DoxyVerb}    Initialize an object NeuralNetwork.
+
+    Inputs :
+
+    -> entry : STRING variable that is the name of a txt document.
+      This document contains all the information concerning
+      the layers and their sizes. It will be used as followed :
+      "./main.py information.txt"
+      ex of entry : network1.txt
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!calculate\+Neg\+Gradient@{calculate\+Neg\+Gradient}}
+\index{calculate\+Neg\+Gradient@{calculate\+Neg\+Gradient}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{calculate\+Neg\+Gradient(self, in\+\_\+out\+\_\+layers)}{calculateNegGradient(self, in_out_layers)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+calculate\+Neg\+Gradient (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{in\+\_\+out\+\_\+layers}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a06baba93e5a4486e008c739f4492b66f}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a06baba93e5a4486e008c739f4492b66f}
+\begin{DoxyVerb}    Method used to train the neural network.
+
+    Inputs :
+
+    -> inOutLayers : a TUPLE that contains two numpy arrays
+          the first numpy array has a length of 28x28 = 784
+          each element is in [0, 1] 0 means a dark pixel
+          and 1 means a white pixel
+          the second numpy array has length of 10.
+          This is the best output that could be obtain when
+          we test the neural network with the according image
+
+    Output :
+
+    <- (dweights, dbiases) : TUPLE of LISTS.
+          The first one contains NUMPY MATRIX for all the
+          weight matrix in the neural network.
+          The second one contains NUMPY ARRAY for all the
+          biases array in the neural network.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!calculate\+Neg\+Gradient\+N\+EO@{calculate\+Neg\+Gradient\+N\+EO}}
+\index{calculate\+Neg\+Gradient\+N\+EO@{calculate\+Neg\+Gradient\+N\+EO}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{calculate\+Neg\+Gradient\+N\+E\+O(self, in\+\_\+out\+\_\+layers, gdfactor)}{calculateNegGradientNEO(self, in_out_layers, gdfactor)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+calculate\+Neg\+Gradient\+N\+EO (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{in\+\_\+out\+\_\+layers, }
+\item[{}]{gdfactor}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ac5c9936546fa398f9c30c17651293d8c}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ac5c9936546fa398f9c30c17651293d8c}
+\begin{DoxyVerb}    Method used to train the neural network.
+
+    Inputs :
+
+    -> inOutLayers : a TUPLE that contains two numpy arrays
+          the first numpy array has a length of 28x28 = 784
+          each element is in [0, 1] 0 means a dark pixel
+          and 1 means a white pixel
+          the second numpy array has length of 10.
+          This is the best output that could be obtain when
+          we test the neural network with the according image
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!derivative\+Cost\+To\+Param@{derivative\+Cost\+To\+Param}}
+\index{derivative\+Cost\+To\+Param@{derivative\+Cost\+To\+Param}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{derivative\+Cost\+To\+Param(self, index, a, der\+\_\+func\+\_\+z, der\+\_\+cost\+\_\+to\+\_\+a)}{derivativeCostToParam(self, index, a, der_func_z, der_cost_to_a)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+derivative\+Cost\+To\+Param (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{index, }
+\item[{}]{a, }
+\item[{}]{der\+\_\+func\+\_\+z, }
+\item[{}]{der\+\_\+cost\+\_\+to\+\_\+a}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8bbfff35ec6a3a467bf1e39a37babae8}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8bbfff35ec6a3a467bf1e39a37babae8}
+\begin{DoxyVerb}    Optimized calculation for derivative of the cost function according
+    to the following parameters : bias, weight and a.
+
+    Complexity : (column+1) * row
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!generate\+All\+Layers@{generate\+All\+Layers}}
+\index{generate\+All\+Layers@{generate\+All\+Layers}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{generate\+All\+Layers(self, input\+\_\+layer)}{generateAllLayers(self, input_layer)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+generate\+All\+Layers (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{input\+\_\+layer}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_adde0d575e9f40dd7740fcb712b293002}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_adde0d575e9f40dd7740fcb712b293002}
+\begin{DoxyVerb}    Method used when training the neural network model by giving it a
+    array that contains all the pixels from an handwriting image.
+    Each step consists in calculating f(A_i x_i + b_i) = x_(i+1).
+    A_i is a weight matrix, b_i is a biases vector, x_i is the neural
+    vector or layer of index i and x_(i+1) of index (i+1).
+
+    Input :
+
+    -> input_layer : NUMPY ARRAY which len is 784.
+             it contains the color of pixel (white / black) with
+             number notation from 0 to 1 (everything was divided
+             by 255)
+
+    Output :
+
+    <- values_layers : LIST of NUMPY ARRAY for each layer in the neural
+             network (they all have different sizes) which size
+             is nb_layer + 2.
+             This will be used to calculate the
+             negative gradient and therefore to do the back
+             propagation. Thus values_layers[self.nb_layer+1] is
+             a NUMPY ARRAY of size 10.
+             ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0] in the best
+             case scenario if the input is a handwriting five.
+
+    <- z_values :    LIST of NUMPY ARRAY for each layer in the neural
+             network minus one (except the first one).
+             Thus its size is nb_layer+1.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!generate\+Input\+Layer@{generate\+Input\+Layer}}
+\index{generate\+Input\+Layer@{generate\+Input\+Layer}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{generate\+Input\+Layer(self, output\+\_\+layer)}{generateInputLayer(self, output_layer)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+generate\+Input\+Layer (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{output\+\_\+layer}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ab287315a1443d6cbf3c6b405a5035be8}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ab287315a1443d6cbf3c6b405a5035be8}
+\begin{DoxyVerb}    Method used to generate an input of the neural network.
+    This input can by used after to reconstitute an image thanks to the
+    function writeMNISTimage in mnistHandwriting.py using
+    Python Image Library.
+    Each step consists in calculating x_i=A_i^(-1)[f^(-1)(x_(i+1))-b_i].
+    A_i is a weight matrix, b_i is a biases vector, x_i is the neural
+    vector or layer of index i and x_(i+1) of index (i+1).
+
+    Inputs :
+
+    -> output_layer : NUMPY ARRAY of size 10. Each element is in
+             [0, 1]. ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+
+    Output :
+
+    <- new_array   : NUMPY ARRAY which len is 784.
+             it contains the color of pixel (white / black) with
+             number notation from 0 to 1
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!generate\+Ouput\+Layer@{generate\+Ouput\+Layer}}
+\index{generate\+Ouput\+Layer@{generate\+Ouput\+Layer}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{generate\+Ouput\+Layer(self, input\+\_\+layer)}{generateOuputLayer(self, input_layer)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+generate\+Ouput\+Layer (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{input\+\_\+layer}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aa315683b512adf945bf1fd54b177dc40}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aa315683b512adf945bf1fd54b177dc40}
+\begin{DoxyVerb}    Method used to test the neural network model by giving it an array
+    that contains all the pixels from an handwriting image. Use the same
+    principle as generateAllLayers method.
+
+    Input :
+
+    -> input_layer : NUMPY ARRAY which len is 784.
+             it contains the color of pixel (white / black) with
+             number notation from 0 to 1 (everything was divided
+             by 255)
+
+    Output :
+
+    <-output_layer : NUMPY ARRAY of size 10.
+             ex : [0, 0, 0, 0, 1, 0, 0, 0, 0, 0] in the best
+             case scenario if the input is a handwriting five.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!inform@{inform}}
+\index{inform@{inform}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{inform(self, args, error\+\_\+rate, average\+\_\+cost)}{inform(self, args, error_rate, average_cost)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+inform (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{args, }
+\item[{}]{error\+\_\+rate, }
+\item[{}]{average\+\_\+cost}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a819389f2ec6231ffdccf186e3f32eb9d}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a819389f2ec6231ffdccf186e3f32eb9d}
+\begin{DoxyVerb}    Method to load information in the CSV file in the correspondant
+    directory.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!initialize\+Empty\+D\+Param\+Arrays@{initialize\+Empty\+D\+Param\+Arrays}}
+\index{initialize\+Empty\+D\+Param\+Arrays@{initialize\+Empty\+D\+Param\+Arrays}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{initialize\+Empty\+D\+Param\+Arrays(self)}{initializeEmptyDParamArrays(self)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+initialize\+Empty\+D\+Param\+Arrays (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a3877f22a5f71a46ecbac86894ea8d426}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a3877f22a5f71a46ecbac86894ea8d426}
+\begin{DoxyVerb}    Method used to do the initialization of dw and db
+    for the method train.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!initialize\+Weights\+Biases@{initialize\+Weights\+Biases}}
+\index{initialize\+Weights\+Biases@{initialize\+Weights\+Biases}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{initialize\+Weights\+Biases(self, dir\+\_\+load)}{initializeWeightsBiases(self, dir_load)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+initialize\+Weights\+Biases (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{dir\+\_\+load}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ad6349ea5f03d3ab38aa0ed4cd27a01b8}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_ad6349ea5f03d3ab38aa0ed4cd27a01b8}
+\begin{DoxyVerb}    Method used to initialize the matrix weights and the vectors biases.
+    If load == None, it means that this will not load weights and biases
+    Else load == "dir/doc.txt" load weight and biases from that doc
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!save@{save}}
+\index{save@{save}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{save(self, dir\+\_\+save)}{save(self, dir_save)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+save (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{dir\+\_\+save}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a30341b6e19d739fb71b1d0370b72b903}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a30341b6e19d739fb71b1d0370b72b903}
+\begin{DoxyVerb}    Method used to save the neural network.
+    In fact, it simply writes every matrix weights and biases in the
+    document named doc_save.
+
+    Moreover, this function also writes information about the
+    size of the training data used to train the model during the
+    execution and
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!test@{test}}
+\index{test@{test}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{test(self, testing\+\_\+data)}{test(self, testing_data)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+test (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{testing\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8043e1545c08fb9a9215d83ba021bd32}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a8043e1545c08fb9a9215d83ba021bd32}
+\begin{DoxyVerb}    Method used to test the neural network after its training.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!train@{train}}
+\index{train@{train}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{train(self, training\+\_\+data, batch\+\_\+size, gradient\+Descent\+Factor, repeat)}{train(self, training_data, batch_size, gradientDescentFactor, repeat)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+train (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{training\+\_\+data, }
+\item[{}]{batch\+\_\+size, }
+\item[{}]{gradient\+Descent\+Factor, }
+\item[{}]{repeat}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a783b7b81a9427e302728b02ade980d18}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_a783b7b81a9427e302728b02ade980d18}
+\begin{DoxyVerb}    Method used to train the neural network.
+
+    If batch_size == 1 => individual training
+    Else               => mini_batching training
+
+    Repeat is the number of repetition of learning for each batch.
+\end{DoxyVerb}
+ \index{src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}!train\+N\+EO@{train\+N\+EO}}
+\index{train\+N\+EO@{train\+N\+EO}!src\+::neural\+Network\+::\+Neural\+Network@{src\+::neural\+Network\+::\+Neural\+Network}}
+\subsubsection[{\texorpdfstring{train\+N\+E\+O(self, training\+\_\+data, batch\+\_\+size, gradient\+Descent\+Factor, repeat)}{trainNEO(self, training_data, batch_size, gradientDescentFactor, repeat)}}]{\setlength{\rightskip}{0pt plus 5cm}def src.\+neural\+Network.\+Neural\+Network.\+train\+N\+EO (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{training\+\_\+data, }
+\item[{}]{batch\+\_\+size, }
+\item[{}]{gradient\+Descent\+Factor, }
+\item[{}]{repeat}
+\end{DoxyParamCaption}
+)}\hypertarget{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aca6c479de85d60a5637164b7579bebc0}{}\label{classsrc_1_1neuralNetwork_1_1NeuralNetwork_aca6c479de85d60a5637164b7579bebc0}
+\begin{DoxyVerb}    Method used to train the neural network.
+
+    If batch_size == 1 => individual training
+    Else               => mini_batching training
+
+    Repeat is the number of repetition of learning for each batch.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/alexandre/\+Documents/python/digit\+Learning/src/neural\+Network.\+py\end{DoxyCompactItemize}

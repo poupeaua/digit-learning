@@ -1,0 +1,209 @@
+\begin{theindex}
+
+  \item {\+\_\+\+\_\+init\+\_\+\+\_\+}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{14}
+
+  \indexspace
+
+  \item {analyse\+Args}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+
+  \indexspace
+
+  \item {c\+Profiler}, \hyperpage{5}
+    \subitem {main}, \hyperpage{5}
+  \item {calculate\+Neg\+Gradient}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{14}
+  \item {calculate\+Neg\+Gradient\+N\+EO}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{14}
+  \item {check\+Batches\+Size\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Gradient\+Descent\+Factor\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Init\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Learning\+Size\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Neural\+Network\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Repeat\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{12}
+  \item {check\+Save\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{13}
+  \item {check\+Squishing\+Functions\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{13}
+  \item {check\+Testing\+Size\+Arg}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{13}
+  \item {Constant}
+    \subitem {src\+::external\+Func}, \hyperpage{7}
+  \item {Cost\+Function}
+    \subitem {src\+::external\+Func}, \hyperpage{7}
+
+  \indexspace
+
+  \item {Der\+Cost\+Function}
+    \subitem {src\+::external\+Func}, \hyperpage{7}
+  \item {Der\+Re\+EU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {Der\+Re\+LU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {Der\+Sigmoid}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {derivative\+Cost\+To\+Param}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{15}
+  \item {display}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{13}
+  \item {display\+Error\+Grad}
+    \subitem {src\+::arguments\+Manager\+::\+Args\+Manager}, 
+		\hyperpage{13}
+
+  \indexspace
+
+  \item {generate\+All\+Layers}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{15}
+  \item {generate\+Input\+Layer}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{15}
+  \item {generate\+Ouput\+Layer}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+
+  \indexspace
+
+  \item {inform}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+  \item {initialize\+Empty\+D\+Param\+Arrays}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+  \item {initialize\+Weights\+Biases}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+  \item {Inv\+Re\+EU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {Inv\+Re\+LU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {Inv\+Sigmoid}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {isfloat}
+    \subitem {src\+::external\+Func}, \hyperpage{7}
+
+  \indexspace
+
+  \item {main}, \hyperpage{5}
+    \subitem {c\+Profiler}, \hyperpage{5}
+    \subitem {main}, \hyperpage{6}
+
+  \indexspace
+
+  \item {Neg\+Power}
+    \subitem {src\+::external\+Func}, \hyperpage{8}
+
+  \indexspace
+
+  \item {P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}
+    \subitem {src\+::arguments\+Manager}, \hyperpage{7}
+  \item {progressbar}
+    \subitem {src\+::external\+Func}, \hyperpage{8}
+
+  \indexspace
+
+  \item {Re\+EU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{9}
+  \item {Re\+LU}
+    \subitem {src\+::squishing\+Func}, \hyperpage{10}
+
+  \indexspace
+
+  \item {save}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+  \item {Sigmoid}
+    \subitem {src\+::squishing\+Func}, \hyperpage{10}
+  \item {src.\+arguments\+Manager}, \hyperpage{6}
+  \item {src.\+arguments\+Manager.\+Args\+Manager}, \hyperpage{11}
+  \item {src.\+external\+Func}, \hyperpage{7}
+  \item {src.\+neural\+Network}, \hyperpage{8}
+  \item {src.\+neural\+Network.\+Neural\+Network}, \hyperpage{13}
+  \item {src.\+squishing\+Func}, \hyperpage{8}
+  \item {src\+::arguments\+Manager}
+    \subitem {P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}, 
+		\hyperpage{7}
+  \item {src\+::arguments\+Manager\+::\+Args\+Manager}
+    \subitem {\+\_\+\+\_\+init\+\_\+\+\_\+}, \hyperpage{12}
+    \subitem {analyse\+Args}, \hyperpage{12}
+    \subitem {check\+Batches\+Size\+Arg}, \hyperpage{12}
+    \subitem {check\+Gradient\+Descent\+Factor\+Arg}, \hyperpage{12}
+    \subitem {check\+Init\+Arg}, \hyperpage{12}
+    \subitem {check\+Learning\+Size\+Arg}, \hyperpage{12}
+    \subitem {check\+Neural\+Network\+Arg}, \hyperpage{12}
+    \subitem {check\+Repeat\+Arg}, \hyperpage{12}
+    \subitem {check\+Save\+Arg}, \hyperpage{13}
+    \subitem {check\+Squishing\+Functions\+Arg}, \hyperpage{13}
+    \subitem {check\+Testing\+Size\+Arg}, \hyperpage{13}
+    \subitem {display}, \hyperpage{13}
+    \subitem {display\+Error\+Grad}, \hyperpage{13}
+  \item {src\+::external\+Func}
+    \subitem {Constant}, \hyperpage{7}
+    \subitem {Cost\+Function}, \hyperpage{7}
+    \subitem {Der\+Cost\+Function}, \hyperpage{7}
+    \subitem {isfloat}, \hyperpage{7}
+    \subitem {Neg\+Power}, \hyperpage{8}
+    \subitem {progressbar}, \hyperpage{8}
+  \item {src\+::neural\+Network\+::\+Neural\+Network}
+    \subitem {\+\_\+\+\_\+init\+\_\+\+\_\+}, \hyperpage{14}
+    \subitem {calculate\+Neg\+Gradient}, \hyperpage{14}
+    \subitem {calculate\+Neg\+Gradient\+N\+EO}, \hyperpage{14}
+    \subitem {derivative\+Cost\+To\+Param}, \hyperpage{15}
+    \subitem {generate\+All\+Layers}, \hyperpage{15}
+    \subitem {generate\+Input\+Layer}, \hyperpage{15}
+    \subitem {generate\+Ouput\+Layer}, \hyperpage{16}
+    \subitem {inform}, \hyperpage{16}
+    \subitem {initialize\+Empty\+D\+Param\+Arrays}, \hyperpage{16}
+    \subitem {initialize\+Weights\+Biases}, \hyperpage{16}
+    \subitem {save}, \hyperpage{16}
+    \subitem {test}, \hyperpage{16}
+    \subitem {train}, \hyperpage{17}
+    \subitem {train\+N\+EO}, \hyperpage{17}
+  \item {src\+::squishing\+Func}
+    \subitem {Der\+Re\+EU}, \hyperpage{9}
+    \subitem {Der\+Re\+LU}, \hyperpage{9}
+    \subitem {Der\+Sigmoid}, \hyperpage{9}
+    \subitem {Inv\+Re\+EU}, \hyperpage{9}
+    \subitem {Inv\+Re\+LU}, \hyperpage{9}
+    \subitem {Inv\+Sigmoid}, \hyperpage{9}
+    \subitem {Re\+EU}, \hyperpage{9}
+    \subitem {Re\+LU}, \hyperpage{10}
+    \subitem {Sigmoid}, \hyperpage{10}
+
+  \indexspace
+
+  \item {test}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{16}
+  \item {train}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{17}
+  \item {train\+N\+EO}
+    \subitem {src\+::neural\+Network\+::\+Neural\+Network}, 
+		\hyperpage{17}
+
+\end{theindex}

@@ -1,0 +1,58 @@
+\hypertarget{namespacesrc_1_1argumentsManager}{}\section{src.\+arguments\+Manager Namespace Reference}
+\label{namespacesrc_1_1argumentsManager}\index{src.\+arguments\+Manager@{src.\+arguments\+Manager}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classsrc_1_1argumentsManager_1_1ArgsManager}{Args\+Manager}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries S\+I\+Z\+E\+\_\+\+I\+N\+P\+UT} = 784\hypertarget{namespacesrc_1_1argumentsManager_a0da63482a81ae3a3b42015f58edcf9f3}{}\label{namespacesrc_1_1argumentsManager_a0da63482a81ae3a3b42015f58edcf9f3}
+
+\item 
+int {\bfseries S\+I\+Z\+E\+\_\+\+O\+U\+T\+P\+UT} = 10\hypertarget{namespacesrc_1_1argumentsManager_a5af010b163f2408921411102573d20f8}{}\label{namespacesrc_1_1argumentsManager_a5af010b163f2408921411102573d20f8}
+
+\item 
+int {\bfseries S\+I\+Z\+E\+\_\+\+T\+R\+A\+I\+N\+I\+NG} = 60000\hypertarget{namespacesrc_1_1argumentsManager_aecacdbe391b5ed956cc99935025bc273}{}\label{namespacesrc_1_1argumentsManager_aecacdbe391b5ed956cc99935025bc273}
+
+\item 
+int {\bfseries S\+I\+Z\+E\+\_\+\+T\+E\+S\+T\+I\+NG} = 10000\hypertarget{namespacesrc_1_1argumentsManager_aa1a99cd76365685c3fd645d657f3246c}{}\label{namespacesrc_1_1argumentsManager_aa1a99cd76365685c3fd645d657f3246c}
+
+\item 
+int {\bfseries R\+E\+P\+E\+T\+I\+T\+I\+O\+N\+\_\+\+L\+I\+M\+IT} = 1000\hypertarget{namespacesrc_1_1argumentsManager_a7aaa449fa1099b201b2e0f4ff601e665}{}\label{namespacesrc_1_1argumentsManager_a7aaa449fa1099b201b2e0f4ff601e665}
+
+\item 
+list {\bfseries P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+A\+R\+G\+S\+\_\+\+W\+I\+T\+H\+O\+U\+T\+\_\+\+P\+A\+R\+AM} = \mbox{[}\char`\"{}-\/S\char`\"{}, \char`\"{}-\/v\char`\"{}, \char`\"{}-\/I\char`\"{}\mbox{]}\hypertarget{namespacesrc_1_1argumentsManager_ad1a134cf4111f1c17bd3ccdf78035057}{}\label{namespacesrc_1_1argumentsManager_ad1a134cf4111f1c17bd3ccdf78035057}
+
+\item 
+list {\bfseries P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+A\+R\+G\+S\+\_\+\+W\+I\+T\+H\+\_\+\+P\+A\+R\+AM} = \mbox{[}\char`\"{}-\/bs\char`\"{}, \char`\"{}-\/sf\char`\"{}, \char`\"{}-\/gdf\char`\"{}, \char`\"{}-\/r\char`\"{}, \char`\"{}-\/ls\char`\"{}, \char`\"{}-\/ts\char`\"{}, \char`\"{}-\/init=S\char`\"{}\mbox{]}\hypertarget{namespacesrc_1_1argumentsManager_a60104cd76409424d219c71247b4f869b}{}\label{namespacesrc_1_1argumentsManager_a60104cd76409424d219c71247b4f869b}
+
+\item 
+{\bfseries A\+L\+L\+\_\+\+P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+A\+R\+GS} = P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+A\+R\+G\+S\+\_\+\+W\+I\+T\+H\+\_\+\+P\+A\+R\+AM+P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+A\+R\+G\+S\+\_\+\+W\+I\+T\+H\+O\+U\+T\+\_\+\+P\+A\+R\+AM\hypertarget{namespacesrc_1_1argumentsManager_a65e51c3922e5d4024effe55f284ad482}{}\label{namespacesrc_1_1argumentsManager_a65e51c3922e5d4024effe55f284ad482}
+
+\item 
+list {\bfseries P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+S\+Q\+U\+I\+S\+H\+I\+N\+G\+\_\+\+F\+U\+NC} = \mbox{[}\char`\"{}Sigmoid\char`\"{}, \char`\"{}Re\+EU\char`\"{}, \char`\"{}Re\+LU\char`\"{}\mbox{]}\hypertarget{namespacesrc_1_1argumentsManager_aa475c3c41fa2a039bb78f0b42cbb001a}{}\label{namespacesrc_1_1argumentsManager_aa475c3c41fa2a039bb78f0b42cbb001a}
+
+\item 
+list {\bfseries P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}File used to manage the arguments given by the user in the main function.
+As they are a lot of parameters possible it is better to decompose the code.
+Moreover, it will be easier to add and/or modify (the behaviour of) some
+parameters by creating a class to manage them.
+\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\index{src\+::arguments\+Manager@{src\+::arguments\+Manager}!P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC@{P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}}
+\index{P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC@{P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}!src\+::arguments\+Manager@{src\+::arguments\+Manager}}
+\subsubsection[{\texorpdfstring{P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}{POSSIBLE_GRAD_DESC_FACT_FUNC}}]{\setlength{\rightskip}{0pt plus 5cm}list src.\+arguments\+Manager.\+P\+O\+S\+S\+I\+B\+L\+E\+\_\+\+G\+R\+A\+D\+\_\+\+D\+E\+S\+C\+\_\+\+F\+A\+C\+T\+\_\+\+F\+U\+NC}\hypertarget{namespacesrc_1_1argumentsManager_ae35c445d1916ba9cee50b6ce717b5740}{}\label{namespacesrc_1_1argumentsManager_ae35c445d1916ba9cee50b6ce717b5740}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [\textcolor{stringliteral}{"NegPower\{anyPosFloat\}"},
+2     \textcolor{stringliteral}{"Constant\{anyPosFloat\}"}]
+\end{DoxyCode}
