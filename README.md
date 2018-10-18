@@ -1,6 +1,9 @@
 # digitLearning - Alexandre Poupeau
 Using the MNIST database from Yann LeCun, elaborate a neural network model in
-order to identify digits made by hand.
+order to identify digits made by hand. In this project, the backpropagation is done using a stochastic 
+gradient descent technique. No machine learning library such as Tensorflow, Keras or sklearn
+is used in this project. The goal here is to deeply understand the mecanism of
+training a neural network without using any tool to do that for us.
 
 # HOW TO
 1) Create your own neural network model (OPTIONAL STEP):
