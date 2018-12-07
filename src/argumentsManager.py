@@ -70,7 +70,7 @@ class ArgsManager:
 
         # after analysing say if the batch size is correct
         if self.learning_size % self.batches_size != 0:
-            print("ERROR : The learning size has to be divisible by the the"
+            print("ERROR : The learning size has to be divisible by the"
                 " batch size.")
             sys.exit(1)
 

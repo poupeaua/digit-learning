@@ -28,19 +28,21 @@ def main():
 
     print("Compiling the command :", cmd, "\n")
 
-    os.system("python3 -m cProfile -o profile/dataProfile " + cmd)
-
     profile = "profile/dataProfile"
+
+    os.system("python3 -m cProfile -o " + profile + " " + cmd)
+
     # in case the output file doesn't exist, we have to create it
     if not os.path.isfile(output_file):
-        os.system("touch " + output_file)
+        os.system("touch profile/" + output_file)
 
     # all the information will be printed there thanks to print_stats()
-    sys.stdout = open(output_file, "w")
+    sys.stdout = open("profile/"+output_file, "w")
 
     # creation of the information table
     p = pstats.Stats(profile)
     p.strip_dirs().sort_stats("cumtime").print_stats()
+    print("Profile created in profile/" + output_file + ".")
 
     # reset stdout to normal
     sys.stdout = sys.__stdout__
